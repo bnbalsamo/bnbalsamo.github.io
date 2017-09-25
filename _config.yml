@@ -1,3 +1,4 @@
 theme: minima
 collections:
-    - presmd
+    presentations:
+        output: true
