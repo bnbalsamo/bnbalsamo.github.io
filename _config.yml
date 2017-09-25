@@ -2,3 +2,5 @@ theme: minima
 collections:
     presentations:
         output: true
+exclude:
+    - make_post.sh
