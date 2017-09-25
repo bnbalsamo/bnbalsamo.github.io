@@ -8,7 +8,7 @@ layout: default
     <h1 class="page-heading">Presentations</h1>
     <ul>
         {% for presentation in site.presentations %}
-        <li>{{presentation.url | relative_url}}</li>
+        <li><a href={{presentation.url | relative_url}}>{{presentation.pres_title}}</a></li>
         {% endfor %}
     </ul>
 </div>
