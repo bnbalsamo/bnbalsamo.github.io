@@ -161,10 +161,11 @@ We're about to do some demos.
     - Cool - you can do them locally if you want
 
 - Don't have docker installed? (or just don't want to do them locally?)
-    - Cool you can use [play-with-docker.com](play-with-docker.com)
+    - Cool you can use [play-with-docker.com](http://play-with-docker.com)
 
-If you're using play with Docker, go ahead and click "+ Add New Instance" on the left.
-Can't see it? The website gets a little weird with wrapping sometimes, try and make it fullscreen.
+If you're using play-with-docker, go ahead and click "+ Add New Instance" on the left.
+
+Can't see "+ Add New Instance"? The website gets a little weird with wrapping sometimes, try and make it fullscreen.
 
 ???
 
@@ -192,10 +193,14 @@ $ docker run -ti python
 ```
 
 ## Command Breakdown
-```docker```: The docker CLI utility
-```run```: The subparser for running containers
-```-t```: "tty", allocate a pseudo-tty
-```-i```: "interactive", capture stdin
+- ```docker```: The docker CLI utility
+- ```run```: The subparser for running containers
+- ```-t```: "tty", allocate a pseudo-tty
+- ```-i```: "interactive", capture stdin
+- ```ubuntu||python```: the image to use
+- ```bash```: The command to call within the container
+    - Some images have implicit "entrypoints", like Python
+    does with the REPL
 
 ???
 
