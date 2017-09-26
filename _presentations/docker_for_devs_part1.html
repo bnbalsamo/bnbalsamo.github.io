@@ -368,7 +368,7 @@ we should demonstrate something slightly more useful.
 
 In this example, we will run a service (nginx with the default configuration) in a container, and interact with it from outside of the container via port mapping.
 
-Let's fire up our container **d**etached, and use the .remark-inline-code[-p, --publish] flag to publish port 80 in the container on port 80 of the host.
+Let's fire up our container **d**etached, and use the .remark-inline-code[-p, --publish] flag to publish port 80 in the container on port 80 of the host. We can also use the .remark-inline-code[--name] flag to give our container an easy to remember name.
 ```bash
 $ docker run -d -p 80:80 --name webserver nginx
 ```
@@ -377,6 +377,10 @@ After we do this, interacting with port 80 on our host will forward that traffic
 ```bash
 $ curl localhost:80
 ```
+
+---
+
+# Running a Container, cont'd
 
 And cleanup is quick and easy
 ```bash
