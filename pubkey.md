@@ -1,15 +1,6 @@
 ---
 layout: page
-title: Contact
 ---
-
-Email: [brian@brianbalsamo.com](mailto:brian@brianbalsamo.com)
-
-Places I am:
-- [Github](https://github.com/bnbalsamo)
-- [LinkedIn](https://www.linkedin.com/in/brian-balsamo-62417296/) (which may be out of date)
-- [Twitter](https://twitter.com/bnbalsamo) (but probably not really)
-
 
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
