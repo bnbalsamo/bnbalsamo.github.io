@@ -4,3 +4,4 @@ collections:
         output: true
 exclude:
     - make_post.sh
+    - make_pres.sh
