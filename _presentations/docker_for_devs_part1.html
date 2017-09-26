@@ -192,7 +192,21 @@ If bash isn't your thing...
 $ docker run -ti python
 ```
 
-## Command Breakdown
+???
+
+- Running an ubuntu||python image
+- Does that say root in the prompt?
+    - It does.
+- Can potentially do something drastic, like delete bin
+    - Demonstrate that **this isn't the host**
+- Can demonstrate re-running, to show how fast it is when
+you don't have to download the image. Serious difference from VMs.
+---
+
+# Running a Container, cont'd
+
+ Command Breakdown
+
 - ```docker```: The docker CLI utility
 - ```run```: The subparser for running containers
 - ```-t```: "tty", allocate a pseudo-tty
@@ -204,14 +218,6 @@ $ docker run -ti python
 
 ???
 
-- Running an ubuntu image
-- Does that say root in the prompt?
-    - It does.
-- Can potentially do something drastic, like delete bin
-    - Demonstrate that **this isn't the host**
-- Second command demonstrates "implicit" entrypoints
-- Can demonstrate re-running, to show how fast it is when
-you don't have to download the image. Serious difference from VMs.
 - **Interactive containers are not necessarily the norm**
     - we're going to run a service next
 
