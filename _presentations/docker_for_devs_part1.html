@@ -368,12 +368,14 @@ we should demonstrate something slightly more useful.
 
 In this example, we will run a service (nginx with the default configuration) in a container, and interact with it from outside of the container via port mapping.
 
-Let's fire up our container **d**etached, and use the .remark-inline-code[-p, --publish] flag to publish port 80 in the container on port 80 of the host. We can also use the .remark-inline-code[--name] flag to give our container an easy to remember name.
+Let's fire up our container **d**etached, and use the .remark-inline-code[-p] flag to publish port 80 in the container on port 80 of the host. 
+
+We can also use the .remark-inline-code[--name] flag to give our container an easy to remember name.
 ```bash
 $ docker run -d -p 80:80 --name webserver nginx
 ```
 
-After we do this, interacting with port 80 on our host will forward that traffic to port 80 inside ofthe container
+After we do this, interacting with port 80 on our host will forward that traffic to port 80 inside of the container
 ```bash
 $ curl localhost:80
 ```
@@ -400,7 +402,66 @@ $ curl localhost:80
 
 # Containers Alongside Your Code
 
-TODO: Explain problem domain, ex: "I need a redis server"
+The same principal as the previous nginx example can be used to leverage docker containers
+alongside your code in order to provide quick services for testing and working with
+during development, without the hassle of setting up, maintaining, resetting, etc test servers
+for services like databases.
+
+For example, imagine if I were in the early stages of writing a Clipboard-as-a-Service web clipboard syncronization tool...
+
+---
+
+```python
+from arparse import ArgumentParser
+from os import env
+import redis
+
+def get_clipboard(redis_server, user):
+    # TODO
+    pass
+
+def set_clipboard(redis_server, user, x):
+    # TODO
+    pass
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument("--copy", action='store_true')
+    parser.add_argument("--paste", action='store_true')
+    parser.add_argument("--user", default=None)
+    parser.add_argument("--redis-server", type=str)
+    parser.add_argument("x", type=str)
+
+    args = parser.parse_args()
+
+    # Try to get from the environment, if not supplied
+    if args.user is None:
+        args.user = env.get('WEBCLIP_USER')
+    if args.redis_server is None:
+        args.redis_server = env.get('WEBCLIP_REDIS_SERVER')
+
+    # Test we have what we need
+    if args.user is None:
+        print("No User!")
+        exit(1)
+    if args.redis_server is None:
+        print("No Server!")
+        exit(1)
+    if args.copy and args.paste:
+        print("Pick one!")
+        exit(1)
+
+    # Do the stuff
+    if args.paste:
+        print(get_clipboard(args.redis_server, args.user))
+        exit(0)
+    if args.copy:
+        set_clipboard(args.redis_server, args.user, args.x)
+        exit(0)
+
+if __name__ == '__main__':
+    main()
+```
 
 ---
 
