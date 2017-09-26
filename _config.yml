@@ -1,4 +1,6 @@
 theme: minima
+name: bnbalsamo
+description: Librarian, Developer, etc.
 collections:
     presentations:
         output: true
