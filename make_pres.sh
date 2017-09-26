@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FP="./_presentations/$1.md"
+FP="./_presentations/$1.html"
 
 echo "---" >> $FP
 echo "layout: presentation" >> $FP
