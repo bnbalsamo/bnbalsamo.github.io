@@ -35,7 +35,14 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>{{ site.description | escape }}</p>
+          <ul>
+              <li>
+                <p>{{ site.description | escape }}</p>
+              </li>
+              <li>
+                  <p class="rss-subscribe"><a href="{{ "/feed.xml" | relative_url }}">RSS</a></p>
+              </li>
+          </ul>
       </div>
     </div>
 
