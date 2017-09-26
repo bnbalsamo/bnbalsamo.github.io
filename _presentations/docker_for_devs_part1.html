@@ -363,20 +363,33 @@ command with the output
 ---
 # Running a Container, cont'd
 
+While pinging google is great for checking network connectivity, maybe
+we should demonstrate something slightly more useful.
+
+In this example, we will run a service (nginx with the default configuration) in a container, and interact with it from outside of the container via port mapping.
+
+Let's fire up our container **d**etached, and use the .remark-inline-code[-p, --publish] flag to publish port 80 in the container on port 80 of the host.
 ```bash
 $ docker run -d -p 80:80 --name webserver nginx
 ```
 
+After we do this, interacting with port 80 on our host will forward that traffic to port 80 inside ofthe container
 ```bash
 $ curl localhost:80
 ```
 
+And cleanup is quick and easy
 ```bash
 $ docker stop webserver
 ```
 
 ```bash
 $ docker rm webserver
+```
+
+Leaving nothing after we stop the container
+```bash
+$ curl localhost:80
 ```
 
 ---
