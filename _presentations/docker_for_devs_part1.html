@@ -43,6 +43,15 @@ What I hope this talk teaches you
 - How to put your code in a container
 - How to run your containerized code
 
+???
+
+If they have an interest in this talk, they probably know
+enough to get by.
+
+More knowledge of bash is handy for more complicated flags/args/etc,
+but traversing the file system is pretty important for understanding
+examples, when it comes to building images
+
 ---
 
 # What is Docker?
@@ -51,6 +60,12 @@ What I hope this talk teaches you
 
 .footnote[https://www.docker.com/what-docker]
 
+???
+
+Straight off the website
+
+Kind of sales-pitchy, but gets the point across
+
 ---
 
 # What is a Container?
@@ -58,6 +73,16 @@ What I hope this talk teaches you
 > Containers are a way to package software in a format that can run isolated on a shared operating system. Unlike VMs, containers do not bundle a full operating system - only libraries and settings required to make the software work are needed. This makes for efficient, lightweight, self-contained systems and guarantees that software will always run the same, regardless of where it’s deployed.
 
 .footnote[https://www.docker.com/what-docker]
+
+???
+
+Straight off the website again
+
+- Not VMs
+- isolated (somewhat) - more info coming up next
+- small, fast, effecient
+- **repeatability**
+- Lend themselves very well to automated orchestration
 
 ---
 
@@ -75,7 +100,6 @@ VMs package an **entire system**
 VMs are like houses.
 - Houses are freestanding buildings 
 - Houses have their own plumbing, electrical, etc
-
 
 .footnote[[Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)]
 
@@ -122,37 +146,148 @@ You should also know when to use containers and/or virtual machines.
 
 .footnote[[Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)]
 
+???
+
+The container-folk aren't coming for your VMs with torches and pitchforks
+But this isn't a talk about VMs, so lets get on with it
+
 ---
 
 # Running a Container
 
-TODO: Run an ubuntu container running bash, interactively
+So, now that we know (more or less) what containers are.
+
+Let's try running one!
+
+```bash
+$ docker run -ti ubuntu bash
+```
+
+If bash isn't your thing...
+```bash
+$ docker run -ti python
+```
+
+???
+
+- Running an ubuntu image
+- Does that say root in the prompt?
+    - It does.
+- Can potentially do something drastic, like delete bin
+    - Demonstrate that **this isn't the host**
+- Second command demonstrates "implicit" entrypoints
+- Can demonstrate re-running, to show how fast it is when
+you don't have to download the image. Serious difference from VMs.
+- **Interactive containers are not necessarily the norm**
+    - we're going to run a service next
 
 ---
 
-# Interjection - What did I just download?!
+# Intermezzo
+## What did I just download?!
 
-TODO: Explan the dockerhub
+You just downloaded an Ubuntu (or python) docker image!
+
+- Docker images are "layers" which make up some container
+    - more on layers later
+- They can be pushed (or pulled) from the [DockerHub](https://hub.docker.com)
+- The DockerHub is a little like a package manager
+- Some packages, like Ubuntu or Python are "official" packages
+    - Maintained by organization or Docker
+- **Always** know what images you're running, especially if from an "unofficial"
+source
+    - Docker supports various security metrics for this
+        - They are outside of the scope of this talk
+    - Don't run programs you download off the internet
+        - _sarcasm_ (kind of)
+
+???
+
+Don't get side tracked on layers here - they get gone over in "Building
+an Image" later.
+
+The security note here is a valid one, but definitely outside of the
+scope of this talk, be sure to re-iterate to examine images occasionally
+(especially unofficial images, and especially if they are going to be in
+contact with sensitive data)
 
 ---
 
 # Running a Container, cont'd
 
-TODO: Run an alpine container pinging google, interactively
+```bash
+$ docker run -t busybox ping www.google.com
+```
+
+---
+
+# Intermezzo
+## What's busybox?
+
+TODO: Explain busybox, small images
 
 ---
 
 # Running a Container, cont'd
 
-TODO: Run an alpine container pinging google, backgrounded
-TODO: Check the logs of the container
+```bash
+$ docker run -d busybox ping www.google.com
+```
+
+```bash
+$ docker logs $identifier
+```
+
+```bash
+$ docker logs -f $identifier
+```
 
 ---
 
 # Running a Container, cont'd
 
-TODO: Run an nginx container, map 80
-TODO: Interact with the container from the host
+```bash
+$ docker ps
+```
+
+```bash
+$ docker ps -a
+```
+
+```bash
+$ docker ps -aq
+```
+
+```bash
+$ docker stop $identifier
+```
+
+```bash
+$ docker rm $identifier
+```
+
+```bash
+$ docker rm $(docker ps -aq)
+```
+
+---
+# Running a Container, cont'd
+
+```bash
+$ docker run -d -p 80:80 --name webserver nginx
+```
+
+```bash
+$ curl localhost:80
+```
+
+```bash
+$ docker stop webserver
+```
+
+```bash
+$ docker rm webserver
+```
 
 ---
 
