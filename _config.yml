@@ -1,5 +1,9 @@
 theme: minima
 title: bnbalsamo
+author: Brian Balsamo
+email: brian@brianbalsamo.com
+github_username: bnbalsamo
+twitter_username: bnbalsamo
 description: Librarian, Developer, etc.
 collections:
     presentations:
