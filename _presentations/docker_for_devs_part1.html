@@ -219,7 +219,7 @@ you don't have to download the image. Serious difference from VMs.
 
 ???
 
-- Interactive containers are not necessarily the norm
+- **Interactive containers are not necessarily the norm**
     - we're going to run a service next
 
 ---
@@ -256,28 +256,58 @@ contact with sensitive data)
 
 # Running a Container, cont'd
 
+Lets try running something more "service-y"
+
 ```bash
 $ docker run -t busybox ping www.google.com
 ```
+
+Just like the output of ping from our host, except the container is running it!
+
+???
+
+Note the -t but no -i, we don't need to supply any input here.
 
 ---
 
 # Intermezzo
 ## What's busybox?
 
-TODO: Explain busybox, small images
+Busybox is a tiny environment that provides a couple of Unix tools.
+
+We use it here because it's small, and so quick to download and run.
+
+Size is often a concern with Docker containers, if you are going to distribute
+them widely or duplicate them tens, hundreds, or thousands of times across hosts.
+
+For this reason you often see Docker images built off alpine, a slightly more full
+featured Linux distribution which is still very small compared to your typical Linuxs
+(Ubuntu/Redhat/Debian/etc)
+
+In addition to size, it is often advisable to be running as little as possible (besides
+your application ofcourse) inside of a container. A minimal distro, with fewer bells and
+whistles to begin with, is often easier to achieve this with.
 
 ---
 
 # Running a Container, cont'd
 
+Running a service in a container isn't tremendously useful if it locks up
+our entire host, however.
+
+Why don't we try running the same "service" detached from our terminal.
+
 ```bash
 $ docker run -d busybox ping www.google.com
 ```
 
+To have a peak inside...
+
 ```bash
 $ docker logs $identifier
 ```
+
+Or, in the style of .remark-inline-code[tail -f somelog.log]
 
 ```bash
 $ docker logs -f $identifier
@@ -287,29 +317,43 @@ $ docker logs -f $identifier
 
 # Running a Container, cont'd
 
+We've run quite a few containers now, and in fact, we are still running one!
+
+Let's take a look at the running containers.
 ```bash
 $ docker ps
 ```
 
+And a look at all the containers (even the stopped ones)
 ```bash
 $ docker ps -a
 ```
 
+And, a handy little scriplet for dumping all the container identifiers
 ```bash
 $ docker ps -aq
 ```
 
+Stop our ping container (we don't want to DDOS google)
 ```bash
 $ docker stop $identifier
 ```
 
+Remove the container
 ```bash
 $ docker rm $identifier
 ```
 
+And now let's remove all our stopped containers too, to clean up
 ```bash
 $ docker rm $(docker ps -aq)
 ```
+
+???
+
+People might be be familar with the bashism in the final command,
+it executes the command inside of $() and replaces that portion of the
+command with the output
 
 ---
 # Running a Container, cont'd
