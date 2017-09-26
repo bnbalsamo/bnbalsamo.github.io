@@ -295,7 +295,7 @@ whistles to begin with, is often easier to achieve this with.
 Running a service in a container isn't tremendously useful if it locks up
 our entire host, however.
 
-Why don't we try running the same "service" detached from our terminal.
+Why don't we try running the same "service" **d**etached from our terminal.
 
 ```bash
 $ docker run -d busybox ping www.google.com
@@ -316,6 +316,7 @@ $ docker logs -f $identifier
 ---
 
 # Running a Container, cont'd
+## Check Up
 
 We've run quite a few containers now, and in fact, we are still running one!
 
@@ -324,7 +325,7 @@ Let's take a look at the running containers.
 $ docker ps
 ```
 
-And a look at all the containers (even the stopped ones)
+And a look at all the containers (even the stopped/exited ones)
 ```bash
 $ docker ps -a
 ```
@@ -333,6 +334,10 @@ And, a handy little scriplet for dumping all the container identifiers
 ```bash
 $ docker ps -aq
 ```
+
+---
+# Running a Container, cont'd
+## Clean Up
 
 Stop our ping container (we don't want to DDOS google)
 ```bash
@@ -416,6 +421,17 @@ TODO: Basic Dockerfile
 
 TODO: Build basic Dockerfile
 TODO: Run basic Dockerfile
+
+---
+
+# Additional Reading/Watching
+
+- .remark-inline-code[docker --help]
+- .remark-inline-code[docker run --help]
+    - Really all the help documentation is great
+- [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
+- Video: [Jerome Petazzoni, AJ Bowen," Deploy and Scale Containers with Docker Native, Open Source Orchestration" Pycon 2017](https://www.youtube.com/watch?v=EuzoEaE6Cqs)
+- Video: [Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)
 
 ---
 
