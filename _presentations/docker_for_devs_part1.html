@@ -467,7 +467,21 @@ if __name__ == '__main__':
 
 # Containers Alongside Your Code, cont'd
 
-TODO: Show demo code
+With this written, would you rather...
+
+1. Mock a redis object which implements the functionality the code relies on to test
+2. Use a real redis server to test
+
+in order to test out your proof of concept?
+
+Option 1 disconnects your test from the actual dependency, and can (as in this case) arguably be more complicated to implement in testing than writing the program itself!
+
+Docker to the rescue!
+
+```bash
+$ docker run -d -p 6379:6379 redis
+$ py.test
+```
 
 ---
 
@@ -508,7 +522,7 @@ TODO: Run basic Dockerfile
 - .remark-inline-code[docker run --help]
     - Really all the help documentation is great
 - [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
-- Video: [Jerome Petazzoni, AJ Bowen," Deploy and Scale Containers with Docker Native, Open Source Orchestration" Pycon 2017](https://www.youtube.com/watch?v=EuzoEaE6Cqs)
+- Video: [Jerome Petazzoni, AJ Bowen," Deploy and Scale Containers with Docker Native, Open Source Orchestration" - PyCon 2017](https://www.youtube.com/watch?v=EuzoEaE6Cqs)
 - Video: [Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)
 
 ---
