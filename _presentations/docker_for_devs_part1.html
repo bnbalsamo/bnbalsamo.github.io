@@ -259,7 +259,7 @@ contact with sensitive data)
 Lets try running something more "service-y"
 
 ```bash
-$ docker run -t busybox ping www.google.com
+$ docker run -t alpine ping www.google.com
 ```
 
 Just like the output of ping from our host, except the container is running it!
@@ -271,18 +271,20 @@ Note the -t but no -i, we don't need to supply any input here.
 ---
 
 # Intermezzo
-## What's busybox?
+## What's alpine?
 
-Busybox is a tiny environment that provides a couple of Unix tools.
+Alpine is a tiny linux distribution.
 
 We use it here because it's small, and so quick to download and run.
 
 Size is often a concern with Docker containers, if you are going to distribute
 them widely or duplicate them tens, hundreds, or thousands of times across hosts.
 
-For this reason you often see Docker images built off alpine, a slightly more full
-featured Linux distribution which is still very small compared to your typical Linuxs
-(Ubuntu/Redhat/Debian/etc)
+For this reason you often see Docker images built off of an alpine base, it has
+some nice tools like a package manager, most of the gnu utilities, etc but is 
+still very small compared to your typical distros (Ubuntu/Redhat/Debian/etc). 
+This makes it ideal for mantaining core functionality and convenience in 
+Docker images, while not bogging down images.
 
 In addition to size, it is often advisable to be running as little as possible (besides
 your application ofcourse) inside of a container. A minimal distro, with fewer bells and
@@ -298,7 +300,7 @@ our entire host, however.
 Why don't we try running the same "service" **d**etached from our terminal.
 
 ```bash
-$ docker run -d busybox ping www.google.com
+$ docker run -d alpine ping www.google.com
 ```
 
 To have a peak inside...
@@ -409,6 +411,7 @@ of setting up, maintaining, resetting, etc test servers for services like databa
 For example, imagine if I were in the early stages of writing a [Clipboard-as-a-Service web clipboard syncronization tool...](https://github.com/bnbalsamo/webclip)
 
 ---
+
 # Containers Alongside Your Code, cont'd
 
 With this written, would you rather...
@@ -439,6 +442,18 @@ Option #2
 $ docker run -d -p 6379:6379 redis
 $ py.test
 ```
+
+---
+
+# Containers Alongside Your Code, cont'd
+
+This process can be applied to many "dockerized" network services.
+
+[Explore the Dockerhub](https://hub.docker.com/explore/) for ideas!
+
+or
+
+Dockerize your own services!
 
 ---
 
