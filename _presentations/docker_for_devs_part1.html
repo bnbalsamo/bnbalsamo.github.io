@@ -579,8 +579,38 @@ I highly recommend reading the entirety of the Dockerfile reference.
 
 # Your Code in a Container
 
-TODO: Build basic Dockerfile
-TODO: Run basic Dockerfile
+And now, employing the same basic formula as building your website container,
+combined with the knowledge of Dockerfile it is possible to Dockerize just
+about anything, including your own code!
+
+- Author the image
+    - Select an appropriate base image
+    - Perform the required setup, copying files or installing dependencies
+    - Install your program
+    - Specify a sane default command 
+- Build the image
+- Run a container!
+
+---
+
+# Your Code in a Container, cont'd
+
+A basic python example might look as follows:
+
+Dockerfile
+```bash
+FROM python
+COPY . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+RUN python setup.py install
+CMD ['python' '-m' 'YourModuleName']
+```
+
+```bash
+$ docker build . -t mymodule
+$ docker run -d mymodule
+```
 
 ---
 
