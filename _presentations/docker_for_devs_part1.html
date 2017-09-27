@@ -32,6 +32,8 @@ What (I hope) this talk teaches you
 
 ???
 
+The agenda for todays talk
+
 Things you should know: bash, of VMs, networking and programs that communicate over networks
 
 More knowledge of bash is handy for more complicated flags/args/etc,
@@ -60,7 +62,9 @@ By the end of the talk you will have:
 
 ???
 
-Straight off the website
+What is Docker?
+
+this blurb is straight off the website
 
 Kind of sales-pitchy, but gets the point across
 
@@ -75,6 +79,8 @@ Docker is a container "platform" - the technology and tools to build, run, and m
 .footnote[https://www.docker.com/what-docker]
 
 ???
+
+What is a container?
 
 Straight off the website again
 
@@ -104,6 +110,12 @@ VMs are like houses.
 .footnote[[Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)]
 
 ???
+
+Containers aren't VMs, VMs aren't containers
+
+Mike Coleman, a presenter at Dockercon, came up with a great metaphor
+
+House:Apartment::VM:Container
 
 VMs package _everything_, they are houses. Independent, don't share resources, etc
 
@@ -148,11 +160,13 @@ with different expectations.
 
 ???
 
+VMs and Containers are typically used in different situations
+
 VMs == old guard, workhorses.
 
 Still definitely good for certain applications, long term, _highly_ customized, whole "appliances"
 
-Containers solve a problem people were experiencing.
+Containers solve problems devs and ops were experiencing.
 
 Turn code into a shippable unit
 
@@ -177,6 +191,8 @@ You should also know when to use containers and/or virtual machines.
 .footnote[[Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)]
 
 ???
+
+Despite their differences, VMs and containers can (and probably must) live in harmony
 
 The container-folk aren't coming for your VMs with torches and pitchforks
 
@@ -203,6 +219,8 @@ If you're using play-with-docker, go ahead and click "+ Add New Instance" on the
 **Note**: Can't see "+ Add New Instance"? The website gets a little weird with wrapping sometimes, try and make it fullscreen.
 
 ???
+
+Time for some demos
 
 Best way to learn is to get your hands dirty
 
@@ -231,6 +249,8 @@ $ docker run -ti python
 
 ???
 
+Time to run our first container.
+
 Does that say root in the prompt? Yes.
 
 Can potentially do something drastic, like delete bin. 
@@ -255,6 +275,9 @@ you don't have to download the image. Serious difference from VMs.
     does with the REPL
 
 ???
+
+Lets dissect this command, it has a lot of information jammed in there
+
 
 - **Interactive containers are not necessarily the norm**
     - we're going to run a service next
@@ -303,13 +326,15 @@ Though the output may look identical, this ping is running from the container, n
 
 ???
 
-Lets run something more similar to a service.
+Lets run something more service-y.
 
 Services run continuously, perform a function (either continously or on demand)
 
 Ping makes an acceptable stand in for a fully automated service.
 
 We could run this with just -t and no -i, but then ^C just disconnects us from the container, and doesn't kill the ping.
+
+This behavior could be desirable or not, keep thoughts like this in mind when running your containers
 
 ---
 
