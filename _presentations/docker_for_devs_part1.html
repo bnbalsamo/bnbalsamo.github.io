@@ -407,61 +407,7 @@ alongside your code in order to provide quick services for testing and working w
 during development, without the hassle of setting up, maintaining, resetting, etc test servers
 for services like databases.
 
-For example, imagine if I were in the early stages of writing a Clipboard-as-a-Service web clipboard syncronization tool...
-
----
-
-```python
-from arparse import ArgumentParser
-from os import env
-import redis
-
-def get_clipboard(redis_server, user):
-    # TODO
-    pass
-
-def set_clipboard(redis_server, user, x):
-    # TODO
-    pass
-
-def main():
-    parser = ArgumentParser()
-    parser.add_argument("--copy", action='store_true')
-    parser.add_argument("--paste", action='store_true')
-    parser.add_argument("--user", default=None)
-    parser.add_argument("--redis-server", type=str)
-    parser.add_argument("x", type=str)
-
-    args = parser.parse_args()
-
-    # Try to get from the environment, if not supplied
-    if args.user is None:
-        args.user = env.get('WEBCLIP_USER')
-    if args.redis_server is None:
-        args.redis_server = env.get('WEBCLIP_REDIS_SERVER')
-
-    # Test we have what we need
-    if args.user is None:
-        print("No User!")
-        exit(1)
-    if args.redis_server is None:
-        print("No Server!")
-        exit(1)
-    if args.copy and args.paste:
-        print("Pick one!")
-        exit(1)
-
-    # Do the stuff
-    if args.paste:
-        print(get_clipboard(args.redis_server, args.user))
-        exit(0)
-    if args.copy:
-        set_clipboard(args.redis_server, args.user, args.x)
-        exit(0)
-
-if __name__ == '__main__':
-    main()
-```
+For example, imagine if I were in the early stages of writing a [Clipboard-as-a-Service web clipboard syncronization tool...](https://github.com/bnbalsamo/webclip)
 
 ---
 
@@ -474,7 +420,16 @@ With this written, would you rather...
 
 in order to test out your proof of concept?
 
-Option 1 disconnects your test from the actual dependency, and can (as in this case) arguably be more complicated to implement in testing than writing the program itself!
+Option #1
+- Disconnects your code from the underlying redis implementation
+    - Are you positive you mocked that object right?
+    - What if the dependency interface changes?
+    - etc
+- Can be more complicated than the original program!
+    - As in this case
+
+Option #2
+- Requires setting up a whole redis server!
 
 Docker to the rescue!
 
