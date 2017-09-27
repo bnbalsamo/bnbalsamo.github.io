@@ -487,11 +487,11 @@ one on top of the other, to produce the resulting image.
 
 Let's have a look at a simple Dockerfile
 
-.remark-code[
+```bash
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]
-]
+```
 
 ---
 
@@ -510,6 +510,63 @@ to begin building our image from.
 
 ---
 
+# Building a Container, cont'd
+
+Let's go ahead and try some experimenting with this Dockerfile
+
+To set up our environment
+
+```bash
+$ mkdir my_website
+$ cd my_website
+$ nano Dockerfile # or your preferred editor
+$ # Write the Dockerfile
+$ nano index.html # or your preferred editor
+$ # Put whatever you want in the index!
+```
+
+---
+
+# Building a Container, cont'd
+
+To build our image
+
+```bash
+$ docker build . -t my_website
+```
+
+- .remark-inline-code[docker]: Use the docker CLI
+- .remark-inline-code[build]: Use the 'build' subparser
+- .remark-inline-code[.]: Use this directory as the build environment
+    - Defaults to looking for a file called "Dockerfile" in the specified dir
+- .remark-inline-code[-t my_website]: Tag the built image "my_website"
+
+---
+
+# Building a Container, cont'd
+
+Any now, we can run containers using the image we just built!
+
+Par for the course
+```bash
+$ docker run -p 80:80 my_website
+```
+
+And another, bound to a different port
+```bash
+$ docker run -p 8080:80 my_website
+```
+
+Some bonus commands to examine the output of
+```bash
+$ docker ps
+$ curl localhost:80
+$ curl localhost:8080
+$ docker run my_website /bin/sh
+```
+
+---
+
 # Your Code in a Container
 
 TODO: Build basic Dockerfile
@@ -521,6 +578,7 @@ TODO: Run basic Dockerfile
 
 - .remark-inline-code[docker --help]
 - .remark-inline-code[docker run --help]
+- .remark-inline-code[docker build --help]
     - Really all the help documentation is great
 - [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
 - Video: [Jerome Petazzoni, AJ Bowen," Deploy and Scale Containers with Docker Native, Open Source Orchestration" - PyCon 2017](https://www.youtube.com/watch?v=EuzoEaE6Cqs)
