@@ -160,14 +160,14 @@ But this isn't a talk about VMs, so lets get on with it
 We're about to do some demos.
 
 - Have docker installed? 
-    - Cool - you can do them locally if you want
+    - Cool - you can do them locally if you want to
 
 - Don't have docker installed? (or just don't want to do them locally?)
-    - Cool you can use [play-with-docker.com](http://play-with-docker.com)
+    - Also cool - you can use [play-with-docker.com](http://play-with-docker.com)
 
 If you're using play-with-docker, go ahead and click "+ Add New Instance" on the left.
 
-Can't see "+ Add New Instance"? The website gets a little weird with wrapping sometimes, try and make it fullscreen.
+**Note**: Can't see "+ Add New Instance"? The website gets a little weird with wrapping sometimes, try and make it fullscreen.
 
 ???
 
@@ -433,6 +433,22 @@ Option #1
 
 Option #2
 - Requires setting up a whole redis server!
+
+---
+
+# Intermezzo
+## Setting this demo up on a play-with-docker instance
+
+```bash
+$ apk add --no-cache python3
+$ git clone https://github.com/bnbalsamo/webclip.git
+$ cd webclip
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements_dev.txt
+$ python setup.py install
+$ webclip --help
+```
 
 ---
 
