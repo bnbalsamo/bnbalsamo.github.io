@@ -497,7 +497,6 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 CMD nginx -g "daemon off;"
 ```
-**Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
 
 ---
 
@@ -514,6 +513,7 @@ to begin building our image from.
 - .remark-inline-code[COPY index.html /usr/share/nginx/html/]: This line copies a file from our Docker build environment (by default, the directory the Dockerfile is in) into the container at the specified location.
     - The specified location here happens to be the docroot defined by the default nginx config.
 - .remark-inline-code[CMD nginx -g ”daemon off;”]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
+    - **Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
 
 ---
 
