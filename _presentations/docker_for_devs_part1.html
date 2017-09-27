@@ -275,7 +275,7 @@ We could run this with just -t and no -i, but then ^C just disconnects us from t
 # Intermezzo
 ## What's alpine?
 
-Alpine is a tiny linux distribution.
+Alpine is a tiny Linux distribution.
 
 We use it here because it's small, and so quick to download and run.
 
@@ -285,7 +285,7 @@ them widely or duplicate them tens, hundreds, or thousands of times across hosts
 For this reason you often see Docker images built off of an alpine base, it has
 some nice tools like a package manager, most of the gnu utilities, etc but is 
 still very small compared to your typical distros (Ubuntu/Redhat/Debian/etc). 
-This makes it ideal for mantaining core functionality and convenience in 
+This makes it ideal for maintaining core functionality and convenience in 
 Docker images, while not bogging down images.
 
 In addition to size, it is often advisable to be running as little as possible (besides
@@ -360,7 +360,7 @@ $ docker rm $(docker ps -aq)
 
 ???
 
-People might be be familar with the bashism in the final command,
+People might be be familiar with the bashism in the final command,
 it executes the command inside of $() and replaces that portion of the
 command with the output
 
@@ -410,7 +410,7 @@ The same principal as the previous nginx example can be used to leverage docker 
 alongside your code in order to provide services during development, without the hassle 
 of setting up, maintaining, resetting, etc test servers for services like databases.
 
-For example, imagine if I were in the early stages of writing a [Clipboard-as-a-Service web clipboard syncronization tool...](https://github.com/bnbalsamo/webclip)
+For example, imagine if I were in the early stages of writing a [Clipboard-as-a-Service web clipboard synchronization tool...](https://github.com/bnbalsamo/webclip)
 
 ---
 
