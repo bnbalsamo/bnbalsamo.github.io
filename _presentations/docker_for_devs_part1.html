@@ -501,9 +501,10 @@ So, what exactly is going on here?
 
 - .remark-inline-code[FROM nginx:alpine]: This line describes the base image we want
 to begin building our image from.
-    - This image is also built from a Dockerfile, he you can look them up through the
+    - This image is also built from a Dockerfile, you can look them up through the
     Dockerhub. This one is [here](https://github.com/nginxinc/docker-nginx/blob/1d2e2ccae2f6e478f628f4091d8a5c36a122a157/mainline/alpine/Dockerfile).
-    - All of the layers in FROM image will be applied, _except_ for .remark-inline-code[CMD] and .remark-inline-code[ENTRYPOINT] layers
+        - Bonus points: Trace this image back to FROM scratch
+    - All of the layers in the FROM image will be applied, _except_ for CMD and ENTRYPOINT layers
 - .remark-inline-code[COPY index.html /usr/share/nginx/html/]: This line copies a file from our Docker build environment (by default, the directory the Dockerfile is in) into the container at the specified location.
     - The specified location here happens to be the docroot defined by the default nginx config.
 - .remark-inline-code[CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
@@ -524,10 +525,6 @@ $ # Write the Dockerfile
 $ nano index.html # or your preferred editor
 $ # Put whatever you want in the index!
 ```
-
----
-
-# Building a Container, cont'd
 
 To build our image
 
