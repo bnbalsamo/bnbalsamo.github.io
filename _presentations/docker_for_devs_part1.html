@@ -403,9 +403,8 @@ $ curl localhost:80
 # Containers Alongside Your Code
 
 The same principal as the previous nginx example can be used to leverage docker containers
-alongside your code in order to provide quick services for testing and working with
-during development, without the hassle of setting up, maintaining, resetting, etc test servers
-for services like databases.
+alongside your code in order to provide services during development, without the hassle 
+of setting up, maintaining, resetting, etc test servers for services like databases.
 
 For example, imagine if I were in the early stages of writing a [Clipboard-as-a-Service web clipboard syncronization tool...](https://github.com/bnbalsamo/webclip)
 
@@ -431,18 +430,16 @@ Option #1
 Option #2
 - Requires setting up a whole redis server!
 
-Docker to the rescue!
+---
+
+# Containers Alongside Your Code, cont'd
+
+## Docker to the rescue!
 
 ```bash
 $ docker run -d -p 6379:6379 redis
 $ py.test
 ```
-
----
-
-# Containers Alongside Your Code, cont'd
-
-TODO: Run Demo
 
 ---
 
