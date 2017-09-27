@@ -492,6 +492,7 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]
 ```
+**Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
 
 ---
 
@@ -595,11 +596,12 @@ about anything, including your own code!
 
 # Your Code in a Container, cont'd
 
-A basic python example might look as follows:
+A basic python example, assuming a module with a setup.py install process, might look as follows:
 
 Dockerfile
 ```bash
 FROM python
+RUN apt-get install some_c_lib
 COPY . /code
 WORKDIR /code
 RUN pip install -r requirements.txt
@@ -607,6 +609,7 @@ RUN python setup.py install
 CMD ['python' '-m' 'YourModuleName']
 ```
 
+and at the CLI
 ```bash
 $ docker build . -t mymodule
 $ docker run -d mymodule
@@ -614,7 +617,7 @@ $ docker run -d mymodule
 
 ---
 
-# Additional Reading/Watching
+# Additional Resources
 
 - .remark-inline-code[docker --help]
 - .remark-inline-code[docker run --help]
