@@ -466,27 +466,18 @@ our own containers!
 The first step to building a container is understanding, at a slightly more
 granular level, what a container _is_.
 
-To do this, I'll employ a good ole OO programming metaphor:
+To do this, I'll employ a good ol' OO programming metaphor:
 
-All containers are built from images, in the way that all objects are built
+- All containers are built from images, in the way that all objects are built
 from classes.
-
-The same way a single class can be used to create many objects, a single image
+- The same way a single class can be used to create many objects, a single image
 can be used to create many containers.
-
----
-
-# Building a Container, cont'd
-
-In much the same a class utilizes a constructor, Docker images use Dockerfiles.
-
-Dockerfiles define a series of actions which initialize the beginning "state" of
+- In much the same a class utilizes a constructor, Docker images use Dockerfiles.
+- Dockerfiles define a series of actions which initialize the beginning "state" of
 every container built off the image the Dockerfile defines.
-
-Each "action" defined in a Dockerfile produces a layer, these layers are then stacked,
+- Each "action" defined in a Dockerfile produces a layer, these layers are then stacked,
 one on top of the other, to produce the resulting image.
-
-In this sense, images can be considered "base classes" which are optionally extensible.
+- In this sense, images can be considered "base classes" which are optionally extensible.
 
 ---
 
