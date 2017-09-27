@@ -473,23 +473,40 @@ from classes.
 - The same way a single class can be used to create many objects, a single image
 can be used to create many containers.
 - In much the same a class utilizes a constructor, Docker images use Dockerfiles.
-- Dockerfiles define a series of actions which initialize the beginning "state" of
-every container built off the image the Dockerfile defines.
-- Each "action" defined in a Dockerfile produces a layer, these layers are then stacked,
-one on top of the other, to produce the resulting image.
 - In this sense, images can be considered "base classes" which are optionally extensible.
 
 ---
 
 # Building a Container, cont'd
 
-TODO: Explain Dockerfiles
+Dockerfiles define a series of actions which initialize the beginning "state" of
+every container built off the image the Dockerfile defines.
+
+Each "action" defined in a Dockerfile produces a layer, these layers are then stacked,
+one on top of the other, to produce the resulting image.
+
+Let's have a look at a simple Dockerfile
+
+```
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/
+CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]
+```
 
 ---
 
 # Building a Container, cont'd
 
-TODO: Basic Dockerfile
+So, what exactly is going on here?
+
+- .remark-inline-code[FROM nginx:alpine]: This line describes the base image we want
+to begin building our image from.
+    - This image is also built from a Dockerfile, he you can look them up through the
+    Dockerhub. This one is [here](https://github.com/nginxinc/docker-nginx/blob/1d2e2ccae2f6e478f628f4091d8a5c36a122a157/mainline/alpine/Dockerfile).
+    - All of the layers in FROM image will be applied, _except_ for .remark-inline-code[CMD] and .remark-inline-code[ENTRYPOINT] layers
+- .remark-inline-code[COPY index.html /usr/share/nginx/html/]: This line copies a file from our Docker build environment (by default, the directory the Dockerfile is in) into the container at the specified location.
+    - The specified location here happens to be the docroot defined by the default nginx config.
+- .remark-inline-code[CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
 
 ---
 
