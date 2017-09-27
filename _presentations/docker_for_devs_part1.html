@@ -546,12 +546,12 @@ Any now, we can run containers using the image we just built!
 
 Par for the course
 ```bash
-$ docker run -p 80:80 my_website
+$ docker run -d -p 80:80 my_website
 ```
 
 And another, bound to a different port
 ```bash
-$ docker run -p 8080:80 my_website
+$ docker run -d -p 8080:80 my_website
 ```
 
 Some bonus commands to examine the output of
@@ -559,8 +559,21 @@ Some bonus commands to examine the output of
 $ docker ps
 $ curl localhost:80
 $ curl localhost:8080
-$ docker run my_website /bin/sh
+$ docker run -ti my_website /bin/sh
 ```
+
+---
+
+# Building a Container, cont'd
+
+Now that we've demonstrated building a simple container, feel free
+to peruse the [Dockerfile reference](https://docs.docker.com/engine/reference/builder/) and
+.remark-inline-code[docker build --help] to get an idea of the rest of the capabilities
+of Dockerfiles.
+
+Utilizing other Dockerfile build directives like .remark-inline-code[RUN], .remark-inline-code[ENV], and .remark-inline-code[WORKDIR] it is possible to get a tremendous amount done.
+
+I highly recommend reading the entirety of the Dockerfile reference.
 
 ---
 
