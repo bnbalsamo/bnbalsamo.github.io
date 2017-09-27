@@ -508,7 +508,7 @@ Let's have a look at a simple Dockerfile
 ```bash
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
-CMD nginx -g ”daemon off;”
+CMD nginx -g "daemon off;"
 ```
 **Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
 
