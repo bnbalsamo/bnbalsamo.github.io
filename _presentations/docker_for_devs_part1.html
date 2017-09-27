@@ -32,12 +32,23 @@ What (I hope) this talk teaches you
 
 ???
 
-If they have an interest in this talk, they probably know
-enough to get by.
+Things you should know: bash, of VMs, networking and programs that communicate over networks
 
 More knowledge of bash is handy for more complicated flags/args/etc,
 but traversing the file system is pretty important for understanding
 examples, when it comes to building images
+
+We're going to learn:
+- What Docker is
+- What a container is
+- How containers differ from VMs
+- How VMs are containers coexist, and why
+
+By the end of the talk you will have:
+- Run a container
+- Run a service within a container
+- Used a container to help with development
+- Containized and run a project
 
 ---
 
@@ -52,6 +63,8 @@ examples, when it comes to building images
 Straight off the website
 
 Kind of sales-pitchy, but gets the point across
+
+Docker is a container "platform" - the technology and tools to build, run, and manage containers and container architectures.
 
 ---
 
@@ -90,6 +103,10 @@ VMs are like houses.
 
 .footnote[[Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)]
 
+???
+
+VMs package _everything_, they are houses. Independent, don't share resources, etc
+
 ---
 
 # Containers != VMs, cont'd
@@ -103,6 +120,16 @@ Containers are like apartments
 - Apartments share access to many key components, eg: plumbling, electrical
 
 .footnote[[Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)]
+
+???
+
+Containers package as little as possible.
+
+Share resources, but are safely isolated
+
+Containers are like apartments.
+
+You and your neighbors share pipes, but you don't want to know when they flush.
 
 ---
 
@@ -118,6 +145,20 @@ with different expectations.
 - Containers are commonly used to package simple, usually stateless, applications.
 - Containers are ephemeral, appearing and disappearing as required
 - Containers often run a single service (if not single process) per container
+
+???
+
+VMs == old guard, workhorses.
+
+Still definitely good for certain applications, long term, _highly_ customized, whole "appliances"
+
+Containers solve a problem people were experiencing.
+
+Turn code into a shippable unit
+
+Highly scalable, informed by/informing move towards microservices
+
+Orchestration as code. DevOps
 
 ---
 
@@ -138,6 +179,11 @@ You should also know when to use containers and/or virtual machines.
 ???
 
 The container-folk aren't coming for your VMs with torches and pitchforks
+
+Often the most appropriate orchestrations involve VMs **and** containers
+
+Sometimes the containers are even running on VMs [gasp]
+
 But this isn't a talk about VMs, so lets get on with it
 
 ---
@@ -157,6 +203,8 @@ If you're using play-with-docker, go ahead and click "+ Add New Instance" on the
 **Note**: Can't see "+ Add New Instance"? The website gets a little weird with wrapping sometimes, try and make it fullscreen.
 
 ???
+
+Best way to learn is to get your hands dirty
 
 Give people a minute to get setup
 
@@ -183,12 +231,12 @@ $ docker run -ti python
 
 ???
 
-- Running an ubuntu||python image
-- Does that say root in the prompt?
-    - It does.
-- Can potentially do something drastic, like delete bin
-    - Demonstrate that **this isn't the host**
-- Can demonstrate re-running, to show how fast it is when
+Does that say root in the prompt? Yes.
+
+Can potentially do something drastic, like delete bin. 
+Demonstrates that **this isn't the host**
+
+Can demonstrate re-running, to show how fast it is when
 you don't have to download the image. Serious difference from VMs.
 
 ---
@@ -218,14 +266,11 @@ you don't have to download the image. Serious difference from VMs.
 
 You just downloaded an Ubuntu (or python) docker image!
 
-- Docker images are "layers" which make up some container
-    - more on layers later
 - They can be pushed (or pulled) from the [DockerHub](https://hub.docker.com)
 - The DockerHub is a little like a package manager
 - Some packages, like Ubuntu or Python are "official" packages
     - Maintained by organization or Docker
-- **Always** know what images you're running, especially if from an "unofficial"
-source
+- Don't run code you don't trust.
     - Docker supports various security metrics for this
         - They are outside of the scope of this talk
     - Don't run programs you download off the internet
@@ -233,10 +278,13 @@ source
 
 ???
 
-Don't get side tracked on layers here - they get gone over in "Building
-an Image" later.
+Downloaded image from Dockerhub
 
-The security note here is a valid one, but definitely outside of the
+Dockerhub is like a package manager
+
+Might better be described as something like pypi - if you're a Python person
+
+NOTE: The security note here is a valid one, but definitely outside of the
 scope of this talk, be sure to re-iterate to examine images occasionally
 (especially unofficial images, and especially if they are going to be in
 contact with sensitive data)
@@ -251,9 +299,15 @@ Lets try running something more "service-y"
 $ docker run -ti alpine ping www.google.com
 ```
 
-Just like the output of ping from our host, except the container is running it!
+Though the output may look identical, this ping is running from the container, not the host.
 
 ???
+
+Lets run something more similar to a service.
+
+Services run continuously, perform a function (either continously or on demand)
+
+Ping makes an acceptable stand in for a fully automated service.
 
 We could run this with just -t and no -i, but then ^C just disconnects us from the container, and doesn't kill the ping.
 
@@ -278,6 +332,18 @@ Docker images, while not bogging down images.
 In addition to size, it is often advisable to be running as little as possible (besides
 your application of course) inside of a container. A minimal distro, with fewer bells and
 whistles to begin with, is often easier to achieve this with.
+
+???
+
+Alpine is a small linux distribution
+
+Good for distribution, in case of duplication.
+
+Lots of docker images use Alpine.
+
+Alpine doesn't ship with a lot of other stuff that has to be "turned off"
+
+**Fun Fact**: If you're using play-with-docker you're on Alpine right now!
 
 ---
 
@@ -304,6 +370,14 @@ Or, in the style of .remark-inline-code[tail -f somelog.log]
 $ docker logs -f $identifier
 ```
 
+???
+
+Often times you're running more than one container, or want your container to be out of the way, so getting comfortable with these commands to "check up" on the internals of your container is good.
+
+This is also what logging from all containers looks like, by default.
+
+In your own code remember to allow for logging to stdout
+
 ---
 
 # Running a Container, cont'd
@@ -326,6 +400,14 @@ And, a handy little scriplet for dumping all the container identifiers
 $ docker ps -aq
 ```
 
+???
+
+These commands are just the tip of the iceberg.
+
+We don't really have the time to go through all the administrative docker functionality in this talk, just the bare bones.
+
+Docker provides a ton of functionality for managing containers and images.
+
 ---
 # Running a Container, cont'd
 ## Clean Up
@@ -347,11 +429,15 @@ $ docker rm $(docker ps -aq)
 
 ???
 
-People might be be familiar with the bashism in the final command,
+I find keeping a "tidy" docker workspace is helpful, you only notice
+you've left a mess around when you need to debug something.
+
+Note: People might be be familiar with the bashism in the final command,
 it executes the command inside of $() and replaces that portion of the
 command with the output
 
 ---
+
 # Running a Container, cont'd
 
 While pinging google is great for checking network connectivity, maybe
@@ -371,6 +457,12 @@ After we do this, interacting with port 80 on our host will forward that traffic
 $ curl localhost:80
 ```
 
+???
+
+Pinging google worked as a good stand-in for a service, but lets try out the real deal now.
+
+This is also the first service we'll set up to be able to interact with outside of container-land, via port mapping.
+
 ---
 
 # Running a Container, cont'd
@@ -389,6 +481,12 @@ Leaving nothing after we stop the container
 $ curl localhost:80
 ```
 
+???
+
+Again, keeping a relatively clean environment can pay dividends when something goes wrong.
+
+Resetting the "state" of a supporting service is as simple as stopping one, starting another
+
 ---
 
 # Containers Alongside Your Code
@@ -398,6 +496,12 @@ alongside your code in order to provide services during development, without the
 of setting up, maintaining, resetting, etc test servers for services like databases.
 
 For example, imagine if I were in the early stages of writing a [Clipboard-as-a-Service web clipboard synchronization tool...](https://github.com/bnbalsamo/webclip)
+
+???
+
+But, how about a real world example to demonstrate these principals in action
+
+(give brief code overview in github)
 
 ---
 
@@ -414,6 +518,12 @@ $ pip install -r requirements_dev.txt
 $ python setup.py install
 $ webclip --help
 ```
+
+???
+
+Time permitting pause here, if people want to setup the demo themselves.
+
+Can take the time to explan python virtual environments, demo after activation $ python is 3.x, not 2.7
 
 ---
 
@@ -437,6 +547,28 @@ Option #1
 Option #2
 - Requires setting up a whole redis server!
 
+???
+
+How do we move forward, now that we've got some code?
+
+The unspeakable option: Don't test.
+
+Option 1: Mocking.
+
+more moving parts, more chances for a mishap
+
+Can miss "gotchas" (like r.get() returning bytes, not strs)
+
+Option 2 without Docker:
+- emails
+- resources
+- permissions
+- configuration
+- whose in charge of this?
+- Whats the default state?
+- Is testing going to put the resource in a weird state?
+- etc
+
 ---
 
 # Containers Alongside Your Code, cont'd
@@ -444,9 +576,24 @@ Option #2
 ## Docker to the rescue!
 
 ```bash
+$ py.test
+... boom ...
 $ docker run -d -p 6379:6379 redis
 $ py.test
+... :) ...
 ```
+
+???
+
+Docker to the rescue!
+
+Docker makes all of those go away (mostly)
+
+Easy to standardize default state via images
+
+Easy to "factory reset" - delete and make a new one
+
+Everyone can be tweaking to their hearts content, not stepping on toes
 
 ---
 
@@ -459,6 +606,14 @@ This process can be applied to many "dockerized" network services.
 or
 
 Dockerize your own services!
+
+???
+
+Processes is applicable to lots of services
+
+Dockerhub is a tremendous resource, _lots_ of projects
+
+Guess what we're going to be demoing next?
 
 ---
 
@@ -480,6 +635,19 @@ can be used to create many containers.
 - In much the same way a class utilizes a constructor, Docker images use Dockerfiles.
 - In this sense, images can be considered "base classes" which are optionally extensible.
 
+???
+
+Deeper understanding of Containers, in order to build our own
+
+OOP Metaphor:
+- Images:Containers::Classes:Objects
+    - "blueprints for instances"
+    - one:many
+- Dockerfile::Constructor
+- Extensability
+    - overloading
+    - subclasses
+
 ---
 
 # Building a Container, cont'd
@@ -498,6 +666,14 @@ COPY index.html /usr/share/nginx/html/
 CMD nginx -g "daemon off;"
 ```
 
+???
+
+Dockerfiles define a series of commands, which produce layers
+
+Layers go on one after the other, like lines in a setup script
+
+Image the result of all of the layers stacked up
+
 ---
 
 # Building a Container, cont'd
@@ -514,6 +690,20 @@ to begin building our image from.
     - The specified location here happens to be the docroot defined by the default nginx config.
 - .remark-inline-code[CMD nginx -g ”daemon off;”]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
     - **Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
+
+???
+
+The FROM line: Where we're "inheriting" from
+- All layers _except_ ENTRYPOINT, CMD
+- This probably has a Dockerfile too
+- "scratch" == empty image, beginning 
+
+COPY == copy from **host to container**
+- RUN cp src dst == copies within the container
+
+CMD, probably runs the service.
+
+When CMD exits, container stops
 
 ---
 
@@ -544,6 +734,18 @@ $ docker build . -t my_website
     - Defaults to looking for a file called "Dockerfile" in the specified dir
 - .remark-inline-code[-t my_website]: Tag the built image "my_website"
 
+???
+
+Lets fire this Dockerfile up
+
+Need to make an environment
+
+The environment is important, if the Docker engine is remote it **all** gets packaged up and shipped out
+
+We're going to edit this file on the host and then _copy_ it into the container, but you can also do cool things if instead or during build, on container run you _mount_ the file to the container
+
+Keep thinking with layers, "clobbering" things with mounts is cool in dev, but you want to be able to ship with static setup for prod.
+
 ---
 
 # Building a Container, cont'd
@@ -568,6 +770,12 @@ $ curl localhost:8080
 $ docker run -ti my_website /bin/sh
 ```
 
+???
+
+Now that we built an image, lets run a container
+
+Woohoo! We built a container and can see our content!
+
 ---
 
 # Building a Container, cont'd
@@ -580,6 +788,15 @@ of Dockerfiles.
 Utilizing other Dockerfile build directives like .remark-inline-code[RUN], .remark-inline-code[ENV], and .remark-inline-code[WORKDIR] it is possible to get a tremendous amount done.
 
 I highly recommend reading the entirety of the Dockerfile reference.
+
+???
+
+Fly! Be free! Build useful containers!
+
+You definitely want to read the docs, their is some interesting and powerful functionality which requires a bit of study
+- ENTRYPOINT, CMD
+- ARG, ENV
+- what can be done at run time vs build time
 
 ---
 
@@ -596,6 +813,16 @@ about anything, including your own code!
     - Specify a sane default command 
 - Build the image
 - Run a container!
+
+???
+
+Write a Dockerfile
+
+Build
+
+Run
+
+Tweak
 
 ---
 
@@ -620,6 +847,12 @@ $ docker build . -t mymodule
 $ docker run -d mymodule
 ```
 
+???
+
+Python example is slightly more concrete
+
+Notice sometimes we have to jump through some hoops to install dependencies different ways
+
 ---
 
 # Additional Resources
@@ -631,6 +864,14 @@ $ docker run -d mymodule
 - [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
 - Video: [Jerome Petazzoni, AJ Bowen," Deploy and Scale Containers with Docker Native, Open Source Orchestration" - PyCon 2017](https://www.youtube.com/watch?v=EuzoEaE6Cqs)
 - Video: [Mike Coleman, "Docker?!? But I'm a SYSADMIN!" - Dockercon 2017](https://www.youtube.com/watch?v=M7ZBF-JJWVU)
+
+???
+
+The talks may be a bit lengthy, but are totally worth it
+
+Look up the Dockercon youtube playlists, watch anything that looks interesting
+
+Don't be afraid to follow along
 
 ---
 
