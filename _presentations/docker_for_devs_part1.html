@@ -261,14 +261,14 @@ contact with sensitive data)
 Lets try running something more "service-y"
 
 ```bash
-$ docker run -t alpine ping www.google.com
+$ docker run -ti alpine ping www.google.com
 ```
 
 Just like the output of ping from our host, except the container is running it!
 
 ???
 
-Note the -t but no -i, we don't need to supply any input here.
+We could run this with just -t and no -i, but then ^C just disconnects us from the container, and doesn't kill the ping.
 
 ---
 
@@ -508,7 +508,7 @@ Let's have a look at a simple Dockerfile
 ```bash
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
-CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]
+CMD nginx -g ”daemon off;”
 ```
 **Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
 
@@ -526,7 +526,7 @@ to begin building our image from.
     - All of the layers in the FROM image will be applied, _except_ for CMD and ENTRYPOINT layers
 - .remark-inline-code[COPY index.html /usr/share/nginx/html/]: This line copies a file from our Docker build environment (by default, the directory the Dockerfile is in) into the container at the specified location.
     - The specified location here happens to be the docroot defined by the default nginx config.
-- .remark-inline-code[CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
+- .remark-inline-code[CMD nginx -g ”daemon off;”]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
 
 ---
 
