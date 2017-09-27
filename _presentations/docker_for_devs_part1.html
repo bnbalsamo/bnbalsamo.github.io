@@ -413,6 +413,22 @@ For example, imagine if I were in the early stages of writing a [Clipboard-as-a-
 
 ---
 
+# Intermezzo
+## Setting this demo up on a play-with-docker instance
+
+```bash
+$ apk add --no-cache python3
+$ git clone https://github.com/bnbalsamo/webclip.git
+$ cd webclip
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements_dev.txt
+$ python setup.py install
+$ webclip --help
+```
+
+---
+
 # Containers Alongside Your Code, cont'd
 
 With this written, would you rather...
@@ -432,22 +448,6 @@ Option #1
 
 Option #2
 - Requires setting up a whole redis server!
-
----
-
-# Intermezzo
-## Setting this demo up on a play-with-docker instance
-
-```bash
-$ apk add --no-cache python3
-$ git clone https://github.com/bnbalsamo/webclip.git
-$ cd webclip
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install -r requirements_dev.txt
-$ python setup.py install
-$ webclip --help
-```
 
 ---
 
@@ -489,7 +489,7 @@ To do this, I'll employ a good ol' OO programming metaphor:
 from classes.
 - The same way a single class can be used to create many objects, a single image
 can be used to create many containers.
-- In much the same a class utilizes a constructor, Docker images use Dockerfiles.
+- In much the same way a class utilizes a constructor, Docker images use Dockerfiles.
 - In this sense, images can be considered "base classes" which are optionally extensible.
 
 ---
