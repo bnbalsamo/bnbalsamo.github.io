@@ -487,11 +487,11 @@ one on top of the other, to produce the resulting image.
 
 Let's have a look at a simple Dockerfile
 
-```
+.remark-code[
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 CMD [“/usr/sbin/nginx”,”-g”,”daemon off;”]
-```
+]
 
 ---
 
