@@ -11,19 +11,6 @@ class: center, middle
 ---
 
 # Agenda
-- Key Concepts
-- What is Docker?
-- What is a Container?
-- Containers != VMs
-- Containers ∪ VMs
-- Running a Container
-- Containers Alongside Your Code
-- Building a Container
-- Your Code in Containers
-
----
-
-# Key Concepts
 
 What you should probably know before this talk
 - bash
@@ -32,14 +19,15 @@ What you should probably know before this talk
 - Some basic networking
 - Some (very) basic network programming
 
-What I hope this talk teaches you
+What (I hope) this talk teaches you
 - What Docker is
 - What a container is
 - How containers differ from VMs
     - conceptually, don't expect a libcontainer deep dive
+- How VMs and Containers co-exist
 - How to run a container
 - How to use containers to help you write your code
-- How to put your code in a container
+- How to containerize your own code
 - How to run your containerized code
 
 ???
@@ -295,8 +283,8 @@ whistles to begin with, is often easier to achieve this with.
 
 # Running a Container, cont'd
 
-Running a service in a container isn't tremendously useful if it locks up
-our entire host, however.
+Running a service in a container isn't tremendously convenient if it locks up
+our terminal, however.
 
 Why don't we try running the same "service" **d**etached from our terminal.
 
