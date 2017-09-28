@@ -238,12 +238,12 @@ setup with play-with-docker (or our local docker environments)...
 Let's try running one!
 
 This will run an Ubuntu container, and drop you to a bash prompt
-```bash
+```console
 $ docker run -t -i ubuntu bash
 ```
 
 If bash isn't your thing...
-```bash
+```console
 $ docker run -ti python
 ```
 
@@ -318,7 +318,7 @@ contact with sensitive data)
 
 Lets try running something more "service-y"
 
-```bash
+```console
 $ docker run -ti alpine ping www.google.com
 ```
 
@@ -379,19 +379,19 @@ our terminal, however.
 
 Why don't we try running the same "service" **d**etached from our terminal.
 
-```bash
+```console
 $ docker run -d alpine ping www.google.com
 ```
 
 To have a peak inside...
 
-```bash
+```console
 $ docker logs $identifier
 ```
 
 Or, in the style of .remark-inline-code[tail -f somelog.log]
 
-```bash
+```console
 $ docker logs -f $identifier
 ```
 
@@ -411,17 +411,17 @@ In your own code remember to allow for logging to stdout
 We've run quite a few containers now, and in fact, we are still running one!
 
 Let's take a look at the running containers.
-```bash
+```console
 $ docker ps
 ```
 
 And a look at all the containers (even the stopped/exited ones)
-```bash
+```console
 $ docker ps -a
 ```
 
 And, a handy little scriplet for dumping all the container identifiers
-```bash
+```console
 $ docker ps -aq
 ```
 
@@ -438,17 +438,17 @@ Docker provides a ton of functionality for managing containers and images.
 ## Clean Up
 
 Stop our ping container (we don't want to DDOS google)
-```bash
+```console
 $ docker stop $identifier
 ```
 
 Remove the container
-```bash
+```console
 $ docker rm $identifier
 ```
 
 And now let's remove all our stopped containers too, to clean up
-```bash
+```console
 $ docker rm $(docker ps -aq)
 ```
 
@@ -473,12 +473,12 @@ In this example, we will run a service (nginx with the default configuration) in
 Let's fire up our container **d**etached, and use the .remark-inline-code[-p] flag to publish port 80 in the container on port 80 of the host. 
 
 We can also use the .remark-inline-code[--name] flag to give our container an easy to remember name.
-```bash
+```console
 $ docker run -d -p 80:80 --name webserver nginx
 ```
 
 After we do this, interacting with port 80 on our host will forward that traffic to port 80 inside of the container
-```bash
+```console
 $ curl localhost:80
 ```
 
@@ -493,16 +493,16 @@ This is also the first service we'll set up to be able to interact with outside 
 # Running a Container, cont'd
 
 And cleanup is quick and easy
-```bash
+```console
 $ docker stop webserver
 ```
 
-```bash
+```console
 $ docker rm webserver
 ```
 
 Leaving nothing after we stop the container
-```bash
+```console
 $ curl localhost:80
 ```
 
@@ -533,7 +533,7 @@ But, how about a real world example to demonstrate these principals in action
 # Intermezzo
 ## Setting this demo up on a play-with-docker instance
 
-```bash
+```console
 $ apk add --no-cache python3
 $ git clone https://github.com/bnbalsamo/webclip.git
 $ cd webclip
@@ -600,7 +600,7 @@ Option 2 without Docker:
 
 ## Docker to the rescue!
 
-```bash
+```console
 $ py.test
 ... boom ...
 $ docker run -d -p 6379:6379 redis
@@ -685,7 +685,7 @@ one on top of the other, to produce the resulting image.
 
 Let's have a look at a simple Dockerfile
 
-```bash
+```dockerfile
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 CMD nginx -g "daemon off;"
@@ -738,7 +738,7 @@ Let's go ahead and try some experimenting with this Dockerfile
 
 To set up our environment
 
-```bash
+```console
 $ mkdir my_website
 $ cd my_website
 $ nano Dockerfile # or your preferred editor
@@ -749,7 +749,7 @@ $ # Put whatever you want in the index!
 
 To build our image
 
-```bash
+```console
 $ docker build . -t my_website
 ```
 
@@ -778,17 +778,17 @@ Keep thinking with layers, "clobbering" things with mounts is cool in dev, but y
 Any now, we can run containers using the image we just built!
 
 Par for the course
-```bash
+```console
 $ docker run -d -p 80:80 my_website
 ```
 
 And another, bound to a different port
-```bash
+```console
 $ docker run -d -p 8080:80 my_website
 ```
 
 Some bonus commands to examine the output of
-```bash
+```console
 $ docker ps
 $ curl localhost:80
 $ curl localhost:8080
@@ -856,7 +856,7 @@ Tweak
 A basic python example, assuming a module with a setup.py install process, might look as follows:
 
 Dockerfile
-```bash
+```dockerfile
 FROM python
 RUN apt-get install some_c_lib
 COPY . /code
@@ -867,7 +867,7 @@ CMD ['python' '-m' 'YourModuleName']
 ```
 
 and at the CLI
-```bash
+```console
 $ docker build . -t mymodule
 $ docker run -d mymodule
 ```
