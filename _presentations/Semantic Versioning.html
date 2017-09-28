@@ -20,11 +20,26 @@ class: center, middle
 
 .footnote[google.com]
 
+???
+
+Who doesn't love dictionary definitions?
+
+You probably know what these terms mean separately,
+but what do you get when you cram them together?
+
 ---
 
 class: center, middle
 
 **Semantic versioning is using versioning to convey meaning.**
+
+???
+
+We make "version" a verb, versioning - that mystical thing
+that version control systems do.
+
+And then, and here's the key, we convey **meaning** beyond
+"this thing changed" through the act of versioning.
 
 ---
 
@@ -39,6 +54,18 @@ class: center, middle
     - Programs
 - Sane dependency resolution
 
+???
+
+Why?
+
+So people know whats going on.
+
+Developers, managers, stakeholders, users, dependencies - all of them like
+to know "whats happening?" on a project, but all of them probably want some
+different facet of that question answered.
+
+Semantic versioning helps us do that.
+
 ---
 
 # How?
@@ -46,12 +73,33 @@ class: center, middle
 - **Version Numbers**
     - Version numbers provide the medium to convey the meaning
 
-- **Standardization**
-    - By standardizing the format and procedures for incrementing version numbers
-        they become understandable to all participants in a project
-
 - **Interfaces**
     - Provide a strict definition of what is being versioned.
+
+- **Standardization**
+    - By standardizing the format and procedures for incrementing version numbers
+    they become understandable to all participants in a project
+
+
+???
+
+How?
+
+Version numbers are the medium - the thing we communicate through
+
+Interfaces provide the answer to "What exactly are we versioning?"
+
+What is your projects interface? Thats for you to decide!
+
+In a web API it's probably the endpoints
+
+In a library it's probably the objects, methods, functions, etc
+you provide.
+
+In a command line utility it's probably the CLI syntax.
+
+We standardize this business, so everyone can glean the information
+they're looking for from the version number.
 
 ---
 
@@ -66,6 +114,15 @@ class: center, middle
 - **MINOR**: Additional interface functionality is available
 - **PATCH**: A bugfix has been applied
 
+???
+
+The very basics: How we construct the medium
+
+Version numbers are three parts: MAJOR[dot]MINOR[dot]PATCH
+
+(you can tack more stuff on, and you've probably definitely
+seen projects that do, but lets start with the basics here)
+
 ---
 
 # The Rules
@@ -73,6 +130,23 @@ class: center, middle
 - $X.$Y.$Z
     - No leading zeros!
 - No changing releases after release!
+
+???
+
+The basic rules
+
+In order to version something you have to have something to version
+
+Leading zeros are a pain, and everyone built tooling to avoid them
+
+After you release a version people expect it to stay the same for a
+variety of reasons
+
+- sanity
+- stability
+- reusability
+- security
+- etc
 
 ---
 
@@ -82,6 +156,19 @@ Version < 1.0.0
 
 .center[![The Wild West](http://images.mentalfloss.com/sites/default/files/goodbadhed.jpg?resize=550x370)]
 
+???
+
+Every rule has it's exception. With Semantic Versioning we keep
+that encapsulated below version 1.0.0, the "Wild West" period
+of the project.
+
+Changes are probably happening fast at this point, and you can
+assume that no one is using your project in production (or if they are,
+they've accepted the risk).
+
+You can use the MINOR and PATCH numbers or you can ignore versioning at this
+point, whatever works for you.
+
 ---
 
 class: center, middle
@@ -89,6 +176,14 @@ class: center, middle
 "This doesn't look like a complete specif--"
 
 [http://semver.org/](http://semver.org/)
+
+???
+
+The contents of this presentation, as you've undoubtably noticed, isn't a full specification.
+
+To avoid copy pasting the whole thing, here's the link.
+
+A jaunt through this should clear up ambiguities, edge cases, extensions, and the like
 
 ---
 
@@ -113,6 +208,17 @@ current_version = 0.1.0
 
 .footnote[In python land the config can live in setup.cfg]
 
+???
+
+So - this all seems well and good, but you don't want to have to keep
+track of an entire specification, and how it applies to each of your projects,
+entirely in your head.
+
+Enter bumpversion
+
+bumpversion is a handy little utility (written in python) that takes care of the
+details for you, after you take the time to set it up once
+
 ---
 
 # Why bumpversion?
@@ -125,6 +231,18 @@ current_version = 0.1.0
 - Git awareness if thats your thing
     - Auto-tag, Auto-commit
         - works nicely with github auto-release options
+
+???
+
+Bumpversion has a couple of great features that make it hard to justify
+not using on almost any project.
+
+- You can use it with any language
+- it's configurable enough to handle most anything
+- It's dead simple to use once you've set it up
+- It's not hard to learn how to set up
+- It ties in with the tools you're already using
+    - or probably should be using
 
 ---
 
