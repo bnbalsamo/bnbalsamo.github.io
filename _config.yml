@@ -11,3 +11,22 @@ collections:
 exclude:
     - make_post.sh
     - make_pres.sh
+defaults:
+    -
+        - scope:
+            - path: ""
+            - type: "posts"
+        - values:
+            layout: "post"
+    -
+        - scope:
+            - path: ""
+            - type: "presentations"
+        - values:
+            layout: "presentation"
+    -
+        -scope:
+            -path: ""
+            -type: "drafts"
+        -values:
+            layout: "post"
