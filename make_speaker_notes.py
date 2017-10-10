@@ -1,8 +1,18 @@
-from sys import argv
 from os import scandir
 from os.path import join
 
-from markdown2 import Markdown
+
+"""
+ONLY RUN THIS FROM THE JEKYLL ROOT DIR
+
+Generates notes that will be written
+to the jekyll site for when I don't have
+a dual screen setup to run presenter mode with.
+
+Replacing /presentations/ with /speaker_notes/ in
+the url on the site and it will pull up the notes page
+on a phone/tablet/separate computer/etc
+"""
 
 speaker_notes_header = """---
 layout:page
@@ -11,23 +21,25 @@ title: notes
 
 """
 
+
 def parse_for_notes(p):
     note_lines = []
 
     with open(p) as f:
         capturing = False
-        for l in f.readlines():
-            if l == "???\n":
+        for line in f.readlines():
+            if line == "???\n":
                 capturing = True
                 continue
-            if l == "---\n":
+            if line == "---\n":
+                # Ignore the header
                 if capturing:
-                    note_lines.append(l)
+                    note_lines.append(line)
                 capturing = False
                 continue
 
             if capturing:
-                note_lines.append(l)
+                note_lines.append(line)
 
     notes_markdown = "".join(note_lines)
     return notes_markdown
