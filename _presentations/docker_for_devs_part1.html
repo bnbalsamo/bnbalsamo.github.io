@@ -687,7 +687,7 @@ Let's have a look at a simple Dockerfile
 
 ```dockerfile
 FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/
+COPY docroot /usr/share/nginx/html
 CMD nginx -g "daemon off;"
 ```
 
@@ -711,7 +711,7 @@ to begin building our image from.
     Dockerhub. This one is [here](https://github.com/nginxinc/docker-nginx/blob/1d2e2ccae2f6e478f628f4091d8a5c36a122a157/mainline/alpine/Dockerfile).
         - Bonus points: Trace this image back to FROM scratch
     - All of the layers in the FROM image will be applied, _except_ for CMD and ENTRYPOINT layers
-- .remark-inline-code[COPY index.html /usr/share/nginx/html/]: This line copies a file from our Docker build environment (by default, the directory the Dockerfile is in) into the container at the specified location.
+- .remark-inline-code[COPY docroot /usr/share/nginx/html]: This line copies a directory from our Docker build environment (by default, the directory the Dockerfile is in) into the container at the specified location.
     - The specified location here happens to be the docroot defined by the default nginx config.
 - .remark-inline-code[CMD nginx -g ”daemon off;”]: This line specifies the default command which will be run when a container built from this image is started, if it isn't clobbered on the command line with a different command.
     - **Note**: We don't want nginx to daemonize, as once the process exits or enters the background the container will automatically exit, thus the .remark-inline-code[-g daemon off;] flag
@@ -742,8 +742,9 @@ To set up our environment
 $ mkdir my_website
 $ cd my_website
 $ nano Dockerfile # or your preferred editor
-$ # Write the Dockerfile
-$ nano index.html # or your preferred editor
+$ # Write (or copy/paste) the Dockerfile
+$ mkdir docroot
+$ nano docroot/index.html # or your preferred editor
 $ # Put whatever you want in the index!
 ```
 
@@ -767,9 +768,6 @@ Need to make an environment
 
 The environment is important, if the Docker engine is remote it **all** gets packaged up and shipped out
 
-We're going to edit this file on the host and then _copy_ it into the container, but you can also do cool things if instead or during build, on container run you _mount_ the file to the container
-
-Keep thinking with layers, "clobbering" things with mounts is cool in dev, but you want to be able to ship with static setup for prod.
 
 ---
 
@@ -800,6 +798,40 @@ $ docker run -ti my_website /bin/sh
 Now that we built an image, lets run a container
 
 Woohoo! We built a container and can see our content!
+
+---
+
+# Building a Container, cont'd
+
+And, a bonus exercise:
+
+```bash
+$ docker run -d -p 80:80 -v $(pwd)/docroot:/usr/share/nginx/html nginx:alpine
+$ curl localhost
+<output>
+$ nano index.html # make some changes
+$ curl localhost
+<output>
+```
+
+We've introduced a new command here, .remark-inline-code[-v]. The .remark-inline-code[-v] flag
+tells the Docker engine to "mount" a directory on the host into the container.
+
+Utilizing a host mount, we can dynamically change what the container is seeing in real time
+without interrupting our process.
+
+Any workflows which utilize an auto-reloading server, or a service reading straight from disk
+can be altered/tested on the fly this way.
+
+???
+
+Keep thinking with layers, "clobbering" things with mounts is cool in dev, but you want to be able to ship with static setup for prod, usually.
+
+Good candidates
+* webservers
+* dynamically reloading WSGI servers
+* Programs watching a directory
+* etc
 
 ---
 
