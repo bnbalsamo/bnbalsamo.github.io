@@ -3,10 +3,6 @@ layout:page
 title: notes
 ---
 
----
----
----
----
 
 Who doesn't love dictionary definitions?
 
@@ -123,5 +119,4 @@ not using on almost any project.
 - It ties in with the tools you're already using
     - or probably should be using
 
----
 ---

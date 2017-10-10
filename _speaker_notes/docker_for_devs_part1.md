@@ -3,9 +3,6 @@ layout:page
 title: notes
 ---
 
----
----
----
 
 The agenda for todays talk
 
