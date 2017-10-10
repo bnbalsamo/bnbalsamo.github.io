@@ -8,6 +8,9 @@ description: Librarian, Developer, etc.
 collections:
     presentations:
         output: true
+    speaker_notes:
+        output: true
 exclude:
     - make_post.sh
     - make_pres.sh
+    - make_speaker_notes.py
