@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<div class="speaker_note_index">
+
+    {{ content }}
+
+    <h1 class="page-heading">Speaker Notes</h1>
+    <ul>
+        {% for notes in site.speaker_notes %}
+        <li><a href="{{ notes.url | relative_url }}">{{ notes.url | relative_url}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
