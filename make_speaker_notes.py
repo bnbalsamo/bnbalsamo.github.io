@@ -9,9 +9,9 @@ Generates notes that will be written
 to the jekyll site for when I don't have
 a dual screen setup to run presenter mode with.
 
-Replacing /presentations/ with /speaker_notes/ in
+Replace /presentations/ with /speaker_notes/ in
 the url on the site and it will pull up the notes page
-on a phone/tablet/separate computer/etc
+for use on a phone/tablet/separate computer/etc
 """
 
 speaker_notes_header = """---
