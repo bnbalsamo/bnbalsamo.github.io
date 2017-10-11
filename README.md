@@ -1,5 +1,7 @@
 # [bnbalsamo.github.io](https://bnbalsamo.github.io)
 
+[![Build Status](https://travis-ci.org/bnbalsamo/bnbalsamo.github.io.svg?branch=master)](https://travis-ci.org/bnbalsamo/bnbalsamo.github.io)
+
 Additional Functionalities
 
 * ```python make_speaker_notes.py```: Produces speakernotes markdown pages from presentations - swap /presentations/ for /speaker_notes/ in the site url to get the speaker notes as a stand alone page.
