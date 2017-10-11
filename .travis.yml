@@ -3,7 +3,7 @@ language: bash
 script: ./build_site.sh \
     && docker build . -t proj \
     && docker run -d -p 80:80 proj \
-    && response=$(curl --write-out %{http_code} --silent --output /dev/null localhost) \\
+    && response=$(curl --write-out %{http_code} --silent --output /dev/null localhost) \
     && [[ $response == 200 ]] \
     && echo "Builds and homepage returns a 200"
 services: 
