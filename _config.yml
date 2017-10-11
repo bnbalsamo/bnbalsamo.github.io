@@ -14,3 +14,7 @@ exclude:
     - make_post.sh
     - make_pres.sh
     - make_speaker_notes.py
+    - test_site.sh
+    - build_site.sh
+    - Dockerfile
+    - .dockerignore
