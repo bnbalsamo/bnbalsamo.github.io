@@ -18,3 +18,4 @@ exclude:
     - build_site.sh
     - Dockerfile
     - .dockerignore
+    - .travis.yml
