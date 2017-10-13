@@ -1,0 +1,73 @@
+==================================================================
+https://keybase.io/bnb
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://brianbalsamo.com
+  * I am bnb (https://keybase.io/bnb) on keybase.
+  * I have a public key with fingerprint 6F4E 5CB2 FE95 7E08 EA0F  162B 5487 1E99 66F2 40D3
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01013c3dda90f815ccfe09ebdb2253eb1b77e2728428fde85e5a60ba0483f7f928050a",
+      "fingerprint": "6f4e5cb2fe957e08ea0f162b54871e9966f240d3",
+      "host": "keybase.io",
+      "key_id": "54871e9966f240d3",
+      "kid": "01013c3dda90f815ccfe09ebdb2253eb1b77e2728428fde85e5a60ba0483f7f928050a",
+      "uid": "90cfaa78fc5e67d1bafed520ea0c8b00",
+      "username": "bnb"
+    },
+    "service": {
+      "hostname": "brianbalsamo.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1507868643,
+  "expire_in": 157680000,
+  "prev": "edf3e12d371da8853635e9bd406347b0d691ddc12ed76f37b396105a7c584b15",
+  "seqno": 16,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtUmtMFFcYXR5WdgG1MRIhgXbHYots4M57ZitaSlNoANuoMZBCtvO4A4Ows+yu
+FAooUYsgIosVqwVKijRSMJJukwKBgpSCIUYEhNQm5SEWtUJEK4YAVTtDyr/+7P1z
+c893zrnn+/K5/L10Ph77T4RckP5655bH9T95XfLU7vv5CK+IeYg5HzkIVy+YKUKH
+03JQFhEzAlCA4gIuihwLJAYlBUGCgIW8yGMYiUMe5WkaYjTGEBgjiZAhIclRgOcA
+weASLbEYA0jAISZEkq1p0G6zy1anaktJBCQFHpMgS9IQMJADEkphPEkwNApZlqIk
+jAAirgrTFYemUMPxnANGyIqKqQ/Larz/4P/PuQ+t2rFAkDiOZiSBhBQtojwnQZHE
+gJpbYHgANKID2q1cFlTZvJVHCk2ICuTIAtRmqjWxVrTLnJXnMh1clhIhKFmq1GZX
+nIqgZKrVdKfT5jBrameeTaN/CnnLv0YWXraK6hhVRQ60O2TFiphRlSk4Zc0ZJQHN
+UAxF4CYE5tpkO7TIGoOkKQaoR/sH5qiWUJRwiGJiEk6jIscwJE7hJGR5kQAUTtA8
+ECkWFUUBxaBIUxJO8zhLoYDkaIFkCB4lEa23bKuimlNqUC5NNXXIaVbOecgOkUJD
+qSfurfPw0QUHGL2VPSnuF1WHfR5uDAhf2711ntri6Qz6TWvISv0m3feNoz0VV6fz
+SfORvKGGawUZ6Z9kv9+EXvXfflPXF3rZFI0e/zb1xZ6H5eOP3gz1e+waji4Quz7I
+HV5/O/twUv+W52daFvtv3+0P/Dov3tfQbLj0WWhJZZzfWezUTGeX3h1M24oaG9p2
+l4Rs9ENtjcxbk3HJQy0rpXcS99aG7bAIp4d6Yu/+NFJmmLbqd4Wf+hkghrCVuKHm
+FtNHF6PGs5+FT1wub5zK2dddHHyzovlB6uKNV0qIA62LTN+0e+HRnHmMTd48M7v/
+G9pX6gwfmdzVcdYiZXLQe7liKI5ui5oqr+19I6HqeNjWpZcfVx/NGDO+3Z1Rfw70
+Dh54N/e3H+e6jCN3OrO+PFlprCmaL7quT0g03guveB5Zk3rRq73718HesobQ5vxj
+qJtYdDxOuDCzY6x2YB9yY3JS73InPZgQ4weSA4YXy7et39A+a0j3eUZjNfb0E0Up
+A0uRo4GBhpWl8zEd91pSzi3UBX1YZb3iz82JncpejJx9uaF1hLoWUOx2hIy+ttXV
+63XyaNTOtonCYx11X4yB1t//2Da/5av3Lg0ORtQHB3bfiouuC3lqulLdEJt1hqBr
+Kc/Y75p884P+nq4uG4t/6hsTs4AOb5banrT3FcwVt8YmLvvUl1Z5R873BBg9iFfZ
+H5K3P6mo21lbaTA2uY7c/0XfMp33+vl1XND458v/AA==
+=DBC4
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/bnb
+
+==================================================================
+
