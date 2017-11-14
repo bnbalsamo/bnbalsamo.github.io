@@ -15,7 +15,7 @@ for use on a phone/tablet/separate computer/etc
 """
 
 speaker_notes_header = """---
-layout:page
+layout: page
 ---
 
 """
