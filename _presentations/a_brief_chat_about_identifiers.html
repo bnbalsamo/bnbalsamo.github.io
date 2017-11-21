@@ -1,0 +1,293 @@
+---
+layout: presentation
+pres_title: A Brief Chat About Identifiers
+---
+
+class: center, middle
+# A Brief Chat About Identifiers
+
+---
+
+class: center, middle
+
+# Whats an Identifier?
+
+---
+
+# Examples
+
+---
+
+# What are identifiers for?
+
+.center[**Identifying** things]
+
+--
+
+.center[...]
+
+.center[duh.]
+
+---
+
+# What _exactly_ is identification?
+
+--
+
+## Let's use some math
+
+--
+
+**DISCLAIMER**: I am about to butcher some math
+
+--
+
+Given a **set** knowing what something
+_is_ is equivalent to knowing everything that it _isn't_.
+
+--
+
+Identification, in this sense, is the isolation of **one** element in a set.
+
+--
+
+How do we know whats in a set?
+
+--
+
+We define or derive all the elements in it. 
+--
+
+- Defining a set: {1, 2, cat, dog, fish, foo, bar}
+- Deriving a set: Evaluate a function over a set of inputs
+    - set = {f(x) for x in {inputs}}
+
+(I'm making up this terminology, but bear with me)
+
+---
+
+# Domains
+
+Domains can be thought of as a special kind of set that represents all potential outputs
+of a function for which that function is defined.
+
+domain = {f(x) for x in {**all potential inputs**}}
+
+--
+
+Domains are important for a couple of reasons:
+
+- If two domains as defined by two different functions don't intersect then those functions
+will _never_ generate an output that "collides" with the other.
+- Functions which map one domain to anothercan have some interesting properties
+    - When a function maps from one domain to another we call the "input" domain the domain,
+    and the domain the function is mapping onto the "codomain"
+    - Kinds of relations (pictures to follow)
+        - injective: All elements in the domain map to a distinct element in the codomain
+        - surjective: All elements in the codomain are mapped to by **at least** one element in the domain.
+        - bijective: injective && surjective
+
+---
+class: center
+
+# Injective
+
+![injective](https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Injection.svg/200px-Injection.svg.png)
+
+All elements in the domain map to a distinct element in the codomain
+---
+class: center
+
+# Surjective
+
+![surjective](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Surjection.svg/200px-Surjection.svg.png)
+
+All elements in the codomain are mapped to by **at least** one element in the domain.
+---
+class: center
+
+# Bijective
+Injective && Surjective
+
+![bijective](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/200px-Bijection.svg.png)
+
+All elements in the domain map to a distinct element in the codomain
+
+and
+
+All elements in the codomain are mapped to by **at least** one element in the domain.
+
+All elements in codomain and domain mapped, all mappings unique == All elements in the domain map to one element in the domain
+---
+
+# A Note on Cardinality
+
+The "cardinality" of a set is the measure of how many things are in it.
+
+Cardinality importantly relates to whether or not it is possible to create injective, surjective, or bijective functions which map between two sets.
+
+Generalized:
+
+Given two sets, A and B:
+- |A| = |B| if there exists a bijective function between A and B
+- |A| <= |B| if there exists an injective function from A to B
+- |A| < |B| if there is an injective function, but no bijective function from A to B
+
+**Cardinalities can be compared between two infinite sets**, and thus the injective, surjective, and bijective nature of functions that map between infinite sets can be determined.
+
+.footnote[https://en.wikipedia.org/wiki/Cardinality]
+
+---
+
+# That's a lot of math
+
+## So, what exactly is identification?
+
+Given a set of identifiers, confined within some domain, and a set of Things™, confined within some domain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™ in order to map identifiers to Things™.
+
+Essential Parts to Consider:
+- Domain of identifiers
+- Domain of Things™
+- Set of identifiers
+- Set of Things™
+- A function that bijectively maps elements in the set of identifiers to elements in the set of Things™
+
+---
+
+# Domain of Identifiers
+
+- The domain of identifiers (probably) shouldn't collide with pre-existing domains
+- The cardinality of the domain of identifiers must be >= the cardinality of the set of Things™
+    - If the set of Things™ you want mapped to is the whole domain of Things™, then the cardinality of the domain Things™ must be <= the cardinality of the domain of identifiers
+- The mapping function **must not** be surjective and not bijective from the domain of identifiers to the codomain of Things™
+    - A single identifier shouldn't map to two Things™
+
+**Re-evaluate constraints if changing the domain**
+
+---
+
+# Domain of Things™
+
+- Usually has some constraints based on the Things™
+- Informs the domain of identifiers as detailed
+- Importantly, can sometimes be finite
+    - Also importantly, causes major problems when assumed to be finite but turns out to be infinite
+
+**Re-evaluate constraints if changing the domain**
+
+---
+
+# Set of Identifiers, and Set of Things™
+
+Often, before generating identifiers you have a set of Things™
+
+Sometimes, before seriously considering your identifier scheme, you have a set of pre-existing identifiers
+
+Be **sure** that any pre-existing elements fall within your defined domain, and keep in mind
+that the more complex the function to define the domain is, the more complex the rest of the
+considerations necessarily become.
+
+---
+
+# Mapping Function
+
+- Should be designed with the identifier domain and Thing™ domain in mind
+
+---
+
+So, now we have a solid understanding of what an identifier is abstractly, as well as what the action of identification is.
+
+Let's leverage this understanding in order to understand how to build systems which
+utilize identifiers in practice.
+
+How should we go about building identifier systems?
+
+- Determine the set things we intend to apply identifiers to
+- Extrapolate that set to a function which defines the domain of things we intend to apply identifiers to.
+- Determine an appropriate identifier scheme
+    - When are we going to generate the identifiers?
+    - Do we need to communicate any information in the identifier itself?
+- Create a function which defines the domain of the identifiers
+- Create a function which generates identifiers within that domain
+- Create a bijective function which maps identifiers to identified things
+- Appropriately expose the function which generates identifiers
+- Appropriately expose the function which maps identifiers to identifier things
+     
+A solid mathmatical base is essential in developing a robust identifier system,
+but there are also many practical considerations which must be taken into account.
+
+Let's take a look at some...
+
+---
+
+# Identifier Generation
+
+Imagine we have a function which defines a domain for our identifiers.
+
+One important aspect of the function which defines our identifier domain is that it needn't (and often times won't) be appropriate for generating individual identifiers.
+
+So - how do we generate an identifier? 
+
+We define another function which is garunteed to produce an output which is an element in (or a subset of) our identifier domain, and which does not already exist in our identifier set.
+
+The precise characteristics of a project often **heavily** inform the function for generating identifiers, just as much if not more so than the generation of the function which defines the identifier domain.
+
+---
+
+# Centralized Identifier Generation
+
+Most non-computational schemes, and many computational schemes, for identifier generation involve a central cannonical source of information. 
+
+A single cannonical source holds information pertaining to the identifier domain, as well as the currently existing identifier set.
+
+When a new identifier is needed this centralized resource is consulted, a new identifier which is checked against the current identifier set is created, and this identifier is transmitted.
+
+- Pros
+    - Can often utilize shorter identifiers
+    - 0% chance of collision if implemented correctly
+- Cons
+    - Introduce a single point of failure to **all** systems which rely on identifier generation
+    - Reliant on algorithmic assurances of uniqueness in the set
+        - Can be slow, potentially dependent on size of existing identifier set in most naive case
+
+---
+
+# **De**centralized Identifier Generation
+
+In decentralized identifier generation schemes a suitably large identifier domain is utilized
+such that many decentralized clients can create identifiers for themselves without consulting
+a centralized resource by injecting enough entropy into the generation of the identifier to be
+reasonably assured that they are not generating an identifier which already exists in the identifier
+set, and that they are not concurrently generating the same identifier as another client.
+
+- Pros
+    - No single point of failure
+    - Scalable
+    - No potentially expensive checks against central resource
+- Cons
+    - Usually necessitates longer identifiers
+    - Statistical chance of collision
+        - can be eliminated or minimized via identifier generation function or other policies
+
+---
+
+# _When_ Identifiers are Generated
+
+One frequently employed tactic for maintaining the proper cardinality of the set of identifiers is to use the identified thing, or some proxy for it, as an input for the function which generates identifiers.
+
+Keep in mind though that if at any point during the creation of the identified thing or the identifier for the thing you necessitate the existence of the other it is possible to end up in a chicken <--> egg scenario, or with one process blocked requiring the existence of/access to the other.
+
+---
+
+# Resolving Identifiers 
+
+---
+
+class: middle
+
+.center[**Thank you**]
+
+.center[Questions?]
+
+.center[Brian Balsamo]
+.center[brian@brianbalsamo.com]
