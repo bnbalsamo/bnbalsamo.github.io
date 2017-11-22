@@ -13,8 +13,30 @@ class: center, middle
 # Whats an Identifier?
 
 ---
+class: center, middle
 
-# Examples
+![](https://images.onlinelabels.com/Images/Predesign/00000002/1116/Blue-Name-Tag.png)
+
+---
+class: center, middle
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/UPC-A-036000291452.png/220px-UPC-A-036000291452.png)
+
+---
+class: center, middle
+
+![](https://upload.wikimedia.org/wikipedia/commons/8/84/Seriennummer.JPG)
+
+---
+
+class: middle
+
+- Brian
+- 1234
+- https://en.wikipedia.org/wiki/University_of_Chicago
+- http://example.org/ark:/12025/654xz321/s3/f8.05v.tiff
+- uid:c21a5d48-0263-4060-ac68-eb0fe591ddd4
+- c21a5d48-0263-4060-ac68-eb0fe591ddd4
 
 ---
 
@@ -117,7 +139,6 @@ and
 
 All elements in the codomain are mapped to by **at least** one element in the domain.
 
-All elements in codomain and domain mapped, all mappings unique == All elements in the domain map to one element in the domain
 ---
 
 # A Note on Cardinality
@@ -143,7 +164,7 @@ Given two sets, A and B:
 
 ## So, what exactly is identification?
 
-Given a set of identifiers, confined within some domain, and a set of Things™, confined within some domain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™ in order to map identifiers to Things™.
+Given a set of identifiers, confined within some domain, and a set of Things™, confined within some codomain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™ in order to map identifiers to Things™.
 
 Essential Parts to Consider:
 - Domain of identifiers
@@ -156,24 +177,29 @@ Essential Parts to Consider:
 
 # Domain of Identifiers
 
-- The domain of identifiers (probably) shouldn't collide with pre-existing domains
+- The domain of identifiers should be well defined
+- The domain of identifiers shouldn't collide with pre-existing domains
+    - https://en.wikipedia.org/wiki/Category:Identifiers
+    - myriad smaller, undocumented systems
+    - systems with implicit scope
 - The cardinality of the domain of identifiers must be >= the cardinality of the set of Things™
-    - If the set of Things™ you want mapped to is the whole domain of Things™, then the cardinality of the domain Things™ must be <= the cardinality of the domain of identifiers
+    - assuming, of course, you want all things mapped at all times.
 - The mapping function **must not** be surjective and not bijective from the domain of identifiers to the codomain of Things™
     - A single identifier shouldn't map to two Things™
 
-**Re-evaluate constraints if changing the domain**
+**Re-evaluate these constraints if changing the domain**
 
 ---
 
 # Domain of Things™
 
+- the domain of Things™ should be well defined
 - Usually has some constraints based on the Things™
-- Informs the domain of identifiers as detailed
+- Informs the domain of identifiers (particularly, the cardinality) as detailed previously
 - Importantly, can sometimes be finite
-    - Also importantly, causes major problems when assumed to be finite but turns out to be infinite
+    - Also importantly, can cause major problems when assumed to be finite but turns out to be infinite
 
-**Re-evaluate constraints if changing the domain**
+**Re-evaluate these constraints if changing the domain**
 
 ---
 
@@ -187,99 +213,33 @@ Be **sure** that any pre-existing elements fall within your defined domain, and 
 that the more complex the function to define the domain is, the more complex the rest of the
 considerations necessarily become.
 
+These sets most likely represent (or will represent) a _significant_ amount of state information which must be managed in your system.
+
 ---
 
 # Mapping Function
 
 - Should be designed with the identifier domain and Thing™ domain in mind
+- Often _heavily_ informed by context
 
 ---
 
 So, now we have a solid understanding of what an identifier is abstractly, as well as what the action of identification is.
 
-Let's leverage this understanding in order to understand how to build systems which
-utilize identifiers in practice.
+This mathematical model provides a great base for understanding identifiers, and the act of identification, but...
 
-How should we go about building identifier systems?
+--
 
-- Determine the set things we intend to apply identifiers to
-- Extrapolate that set to a function which defines the domain of things we intend to apply identifiers to.
-- Determine an appropriate identifier scheme
-    - When are we going to generate the identifiers?
-    - Do we need to communicate any information in the identifier itself?
-- Create a function which defines the domain of the identifiers
-- Create a function which generates identifiers within that domain
-- Create a bijective function which maps identifiers to identified things
-- Appropriately expose the function which generates identifiers
-- Appropriately expose the function which maps identifiers to identifier things
-     
-A solid mathmatical base is essential in developing a robust identifier system,
-but there are also many practical considerations which must be taken into account.
+it masks quite a bit of complexity in a couple of ways:
 
-Let's take a look at some...
-
----
-
-# Identifier Generation
-
-Imagine we have a function which defines a domain for our identifiers.
-
-One important aspect of the function which defines our identifier domain is that it needn't (and often times won't) be appropriate for generating individual identifiers.
-
-So - how do we generate an identifier? 
-
-We define another function which is garunteed to produce an output which is an element in (or a subset of) our identifier domain, and which does not already exist in our identifier set.
-
-The precise characteristics of a project often **heavily** inform the function for generating identifiers, just as much if not more so than the generation of the function which defines the identifier domain.
-
----
-
-# Centralized Identifier Generation
-
-Most non-computational schemes, and many computational schemes, for identifier generation involve a central cannonical source of information. 
-
-A single cannonical source holds information pertaining to the identifier domain, as well as the currently existing identifier set.
-
-When a new identifier is needed this centralized resource is consulted, a new identifier which is checked against the current identifier set is created, and this identifier is transmitted.
-
-- Pros
-    - Can often utilize shorter identifiers
-    - 0% chance of collision if implemented correctly
-- Cons
-    - Introduce a single point of failure to **all** systems which rely on identifier generation
-    - Reliant on algorithmic assurances of uniqueness in the set
-        - Can be slow, potentially dependent on size of existing identifier set in most naive case
-
----
-
-# **De**centralized Identifier Generation
-
-In decentralized identifier generation schemes a suitably large identifier domain is utilized
-such that many decentralized clients can create identifiers for themselves without consulting
-a centralized resource by injecting enough entropy into the generation of the identifier to be
-reasonably assured that they are not generating an identifier which already exists in the identifier
-set, and that they are not concurrently generating the same identifier as another client.
-
-- Pros
-    - No single point of failure
-    - Scalable
-    - No potentially expensive checks against central resource
-- Cons
-    - Usually necessitates longer identifiers
-    - Statistical chance of collision
-        - can be eliminated or minimized via identifier generation function or other policies
-
----
-
-# _When_ Identifiers are Generated
-
-One frequently employed tactic for maintaining the proper cardinality of the set of identifiers is to use the identified thing, or some proxy for it, as an input for the function which generates identifiers.
-
-Keep in mind though that if at any point during the creation of the identified thing or the identifier for the thing you necessitate the existence of the other it is possible to end up in a chicken <--> egg scenario, or with one process blocked requiring the existence of/access to the other.
-
----
-
-# Resolving Identifiers 
+- It doesn't concern itself with the particulars of the required functions, it only stipulates the properties the functions must have
+    - It also deals with 'functions' only in the mathematical sense, glossing over the function_al_ requirements of a system mediated by computers and networks.
+- It doesn't take into account the restraints of the encapsulating system, _why_ you're generating the identifiers, how, when, etc.
+- It only defines one 'layer' of an identifier system, which often employ several layers of resolving identifiers, to new identifiers, to another identifier [...] until the final identifier resolves to the Thing™
+- It doesn't take into account the knowledge transfer problems inherent in widely using identifiers
+    - How do you you communicate the domains?
+    - How do you communicate the agreed upon functions?
+    - How do you manage state across a distributed identifier system?
 
 ---
 
