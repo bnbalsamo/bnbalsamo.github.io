@@ -56,11 +56,23 @@ class: middle
 
 --
 
-## Let's use some math
+.center[![](https://upload.wikimedia.org/wikipedia/commons/8/83/Naming_and_Necessity.jpg)]
+
+
+.footnote[https://en.wikipedia.org/wiki/Naming_and_Necessity]
+---
+
+# What _exactly_ is identification?
+
+### Let's use some math
 
 --
+- a **set** is a collection of distinct objects, considered as an object in its own right.
+- an **element** of a set is any one of the distinct objects that make up that set
 
-**DISCLAIMER**: I am about to butcher some math
+.footnote[https://en.wikipedia.org/wiki/Set_(mathematics)#Membership
+
+https://en.wikipedia.org/wiki/Element_(mathematics)]
 
 --
 
@@ -77,23 +89,31 @@ How do we know whats in a set?
 
 --
 
-We define or derive all the elements in it. 
---
-
-- Defining a set: {1, 2, cat, dog, fish, foo, bar}
-- Deriving a set: Evaluate a function over a set of inputs
-    - set = {f(x) for x in {inputs}}
-
-(I'm making up this terminology, but bear with me)
+We define (or compute) all the elements in it. 
 
 ---
 
+# Functions
+
+In mathematics, a **function** is a relation between a set of inputs and a set of permissible outputs with the property that each input is related to exactly one output.
+
+.center[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Function_machine2.svg/220px-Function_machine2.svg.png)]
+
+Sets can be constructed explicitly: {1, 2, foo, bar, 7.5}
+
+or via functions: {f(x) for x in {inputs}}
+
+.footnote[https://en.wikipedia.org/wiki/Function_(mathematics)]
+
+---
 # Domains
 
 Domains can be thought of as a special kind of set that represents all potential outputs
 of a function for which that function is defined.
 
 domain = {f(x) for x in {**all potential inputs**}}
+
+.footnote[https://en.wikipedia.org/wiki/Domain_of_a_function]
 
 --
 
@@ -112,7 +132,7 @@ will _never_ generate an output that "collides" with the other.
 ---
 class: center
 
-# Injective
+# Injective (one to one)
 
 ![injective](https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Injection.svg/200px-Injection.svg.png)
 
@@ -120,7 +140,7 @@ All elements in the domain map to a distinct element in the codomain
 ---
 class: center
 
-# Surjective
+# Surjective (onto)
 
 ![surjective](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Surjection.svg/200px-Surjection.svg.png)
 
@@ -160,11 +180,9 @@ Given two sets, A and B:
 
 ---
 
-# That's a lot of math
+# So, what exactly is identification?
 
-## So, what exactly is identification?
-
-Given a set of identifiers, confined within some domain, and a set of Things™, confined within some codomain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™ in order to map identifiers to Things™.
+Given a set of identifiers, confined within some domain, and a set of Things™, confined within some codomain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™ in order to map identifiers to Things™, thereby **identifying** them.
 
 Essential Parts to Consider:
 - Domain of identifiers
