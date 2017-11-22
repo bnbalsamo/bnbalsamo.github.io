@@ -28,7 +28,7 @@ Leveraging these capabilities in combination with jekylls built-in preview serve
 In order to do just that, I use this command:
 
 ```
-docker run --name test_site -p 4000:4000 -d -v $(pwd):/srv/jekyll jekyll/jekyll jekyll serve --watch -D```
+$ docker run --name test_site -p 4000:4000 -d -v $(pwd):/srv/jekyll jekyll/jekyll jekyll serve --watch -D```
 
 That's quite a mouthful, so let's break it down
 
@@ -48,7 +48,7 @@ After running that command I am a ```:w``` in vim, and a reload in my web browse
 
 Jekyll is essentially a build tool, which takes an input "slug" of some templates, metadata, and content, and builds a static output. This is a _very_ similar workflow to the way built/compiled languages handle ingesting source code and producing a build artifact to be run.
 
-### Pattern 4)
+### Pattern 3) Deployment Container
 
 # Use Cases
 - Viewing the site while writing (developing/previewing/testing)
