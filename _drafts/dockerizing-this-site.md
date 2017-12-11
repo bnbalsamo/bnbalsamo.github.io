@@ -7,7 +7,7 @@ I am a **big** fan of [Docker](https://www.docker.com/).
 
 If you have no idea what Docker is, I made a [presentation](https://bnbalsamo.github.io/presentations/docker_for_devs_part1.html#1) to introduce people to some basic concepts, and point them in the right direction for continued research.
 
-When I started building this site with [Jekyll](https://jekyllrb.com/), which is what powers [GitHub Pages](https://pages.github.com/) (where this site is currently hosted), it occured to me that Jekyll is _exactly_ the kind of tool that lends itself to containerization and employing a couple of common Docker patterns with.
+When I started building this site with [Jekyll](https://jekyllrb.com/), which is what powers [GitHub Pages](https://pages.github.com/) (where this site is currently hosted), it occurred to me that Jekyll is _exactly_ the kind of tool that lends itself to containerization and employing a couple of common Docker patterns with.
 
 Jekyll provides a container image via Dockerhub [here](https://hub.docker.com/r/jekyll/jekyll/), so using it in a container is as simple as putting ```FROM jekyll/jekyll``` at the top of a Dockerfile, or running ```docker run -ti jekyll/jekyll bash``` from the CLI.
 
@@ -24,7 +24,7 @@ Thus, in order to use the Jekyll preview server (or, more generally, any develop
 - We need to get the container running the development server, looking at the data
 - We need to expose the development server to our host, so we can access our preview
 
-In order to get the data into the contianer, and maintain access to it on our own host, we leverage Docker's ability to mount host directories into containers, such that changes in the directories made on the host are also visible inside of the container. This is achieved via the ```-v``` argument to ```docker run```. This functionality works wonderfully here, but a word of warning - mounting host directories into containers permanently is usually a bad idea in production deployments, we'll get to what to do in that circumstance a bit later in this post.
+In order to get the data into the container, and maintain access to it on our own host, we leverage Docker's ability to mount host directories into containers, such that changes in the directories made on the host are also visible inside of the container. This is achieved via the ```-v``` argument to ```docker run```. This functionality works wonderfully here, but a word of warning - mounting host directories into containers permanently is usually a bad idea in production deployments, we'll get to what to do in that circumstance a bit later in this post.
 
 Running the development server is precisely what Docker was built for, in order to accomplish that we just select the correct image (in this case ```jekyll/jekyll```) and provide it with the command we want to run (again, in this case, ```jekyll serve --watch -D```). Note that here we don't need to actually change the location Jekyll is looking for the data to be served, we can place our data in the default location when we mount our host directory into the container to simplify.
 
