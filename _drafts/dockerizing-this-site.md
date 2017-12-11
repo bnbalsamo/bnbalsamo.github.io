@@ -3,11 +3,11 @@ layout: post
 title: Dockerizing This Site
 ---
 
-I am a **big** fan of [docker](https://www.docker.com/).
+I am a **big** fan of [Docker](https://www.docker.com/).
 
 If you have no idea what Docker is, I made a [presentation](https://bnbalsamo.github.io/presentations/docker_for_devs_part1.html#1) to introduce people to some basic concepts, and point them in the right direction for continued research.
 
-When I started building this site with [Jekyll](https://jekyllrb.com/), which is what powers [github pages](https://pages.github.com/) (where this site is currently hosted), it occured to me that Jekyll is _exactly_ the kind of tool that lends itself to containerization and employing a couple of common Docker patterns with.
+When I started building this site with [Jekyll](https://jekyllrb.com/), which is what powers [GitHub Pages](https://pages.github.com/) (where this site is currently hosted), it occured to me that Jekyll is _exactly_ the kind of tool that lends itself to containerization and employing a couple of common Docker patterns with.
 
 Jekyll provides a container image via Dockerhub [here](https://hub.docker.com/r/jekyll/jekyll/), so using it in a container is as simple as putting ```FROM jekyll/jekyll``` at the top of a Dockerfile, or running ```docker run -ti jekyll/jekyll bash``` from the CLI.
 
@@ -155,6 +155,6 @@ And, after running that command navigating to http://$yourHostOrDomainName shoul
 
 Dockerizing this site has been tremendously helpful to me in working in a Jekyll-based environment, and I hope that this little walkthrough is helpful to you as well, either to make working within your own Jekyll environments more productive, or to help with learning a few common Docker patterns to apply to any environment.
 
-To take a look at precisely how I employ this workflow feel free to have a look at [this site's github repository](https://github.com/bnbalsamo/bnbalsamo.github.io) which contains a few scripts to save me some typing while performing the most common Docker operations I've gone over in this post.
+To take a look at precisely how I employ this workflow feel free to have a look at [this site's GitHub repository](https://github.com/bnbalsamo/bnbalsamo.github.io) which contains a few scripts to save me some typing while performing the most common Docker operations I've gone over in this post.
 
-I've also applied many of these patterns to other projects (most, if not all, of my [Flask](http://flask.pocoo.org/) based APIs are Dockerized). Feel free to have a look at what I've done (and/or what I'm up to currently) on my [Github profile](https://github.com/bnbalsamo).
+I've also applied many of these patterns to other projects (most, if not all, of my [Flask](http://flask.pocoo.org/) based APIs are Dockerized). Feel free to have a look at what I've done (and/or what I'm up to currently) on my [GitHub profile](https://github.com/bnbalsamo).
