@@ -76,11 +76,6 @@ https://en.wikipedia.org/wiki/Element_(mathematics)]
 
 --
 
-Given a **set** knowing what something
-_is_ is equivalent to knowing everything that it _isn't_.
-
---
-
 Identification, in this sense, is the isolation of **one** element in a set.
 
 --
@@ -89,7 +84,7 @@ How do we know whats in a set?
 
 --
 
-We define (or compute) all the elements in it. 
+We define (explicitly and/or via a function) all the elements in it.
 
 ---
 
@@ -121,7 +116,7 @@ Domains are important for a couple of reasons:
 
 - If two domains as defined by two different functions don't intersect then those functions
 will _never_ generate an output that "collides" with the other.
-- Functions which map one domain to anothercan have some interesting properties
+- Functions which map one domain to another can have some interesting properties
     - When a function maps from one domain to another we call the "input" domain the domain,
     and the domain the function is mapping onto the "codomain"
     - Kinds of relations (pictures to follow)
@@ -159,6 +154,10 @@ and
 
 All elements in the codomain are mapped to by **at least** one element in the domain.
 
+--
+
+At least one + Mapping to distinct elements == for each input, one unique output
+
 ---
 
 # A Note on Cardinality
@@ -182,7 +181,7 @@ Given two sets, A and B:
 
 # So, what exactly is identification?
 
-Given a set of identifiers, confined within some domain, and a set of Things™, confined within some codomain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™ in order to map identifiers to Things™, thereby **identifying** them.
+Given a set of identifiers, confined within some domain, and a set of Things™, confined within some codomain, we can use some function f such that f is bijective from the domain of the identifiers to the codomain of the Things™, thereby **identifying** them.
 
 Essential Parts to Consider:
 - Domain of identifiers
@@ -250,10 +249,23 @@ This mathematical model provides a great base for understanding identifiers, and
 
 it masks quite a bit of complexity in a couple of ways:
 
-- It doesn't concern itself with the particulars of the required functions, it only stipulates the properties the functions must have
+--
+
+- It doesn't concern itself with the particulars of the required function(s), it only stipulates the properties the functions must have
+
+--
+
     - It also deals with 'functions' only in the mathematical sense, glossing over the function_al_ requirements of a system mediated by computers and networks.
-- It doesn't take into account the restraints of the encapsulating system, _why_ you're generating the identifiers, how, when, etc.
+
+--
+
+- It doesn't take into account the constraints of the encapsulating system, _why_ you're generating the identifiers, how, when, etc.
+
+--
+
 - It only defines one 'layer' of an identifier system, which often employ several layers of resolving identifiers, to new identifiers, to another identifier [...] until the final identifier resolves to the Thing™
+--
+
 - It doesn't take into account the knowledge transfer problems inherent in widely using identifiers
     - How do you you communicate the domains?
     - How do you communicate the agreed upon functions?
