@@ -150,11 +150,153 @@ information in a variety of useful places, all while keeping it in sync and corr
 delivering information about your code. 
 
 ## Dependencies
+
+> If I have seen further it is by standing on the shoulders of Giants.
+>
+> -- Isaac Newton
+
+When writing a package or module often you depend on other packages or modules 
+for functionality, these packages or modules are called dependencies.
+Dependencies are referenced by your code, you import them,
+but they don't necessarily exist in the Python environment without some intervention by the user.
+
+Python provides two 'common' ways of dealing with dependencies, and though the differences between
+them are hard to spot on the surface, I recommend implementing both in your repositories.
+
+### setup.py
+
+```
+$repo_name/
+├── hello_world/
+│   └── __init__.py
+└── setup.py         <--
+```
+
+
+We'll discuss ```setup.py``` in detail in the packaging section, but for now let's focus on
+exclusively one array in there ```install_requires```.
+
+When packages are added to the ```install_requires``` array and they don't already exist in the
+Python path [setuptools](https://setuptools.readthedocs.io/en/latest/) will retrieve the packages.
+You specify requirements using [specially formatted strings](https://setuptools.readthedocs.io/en/latest/setuptools.html?highlight=install_requires#declaring-dependencies).
+
+Despite the fact that you _can_ leverage quite a bit of control here, I recommend instead that
+you don't. Instead in setup.py I _only_ specify package names. Thus, for me, setup.py is a kind
+of "sanity check" before my code is installed - being sure that all of my dependencies are in place
+already before it is run (we'll get to that in just a moment). The fact that 
+```python setup.py install``` can install packages is, at this point, more a kind of 
+"fall back" than a feature. This is only because failing loudly at install time isn't
+an option, and the alternative would be run time exceptions.
+
+In certain cases, it might even be a misfeature, rather than a fallback, but because
+```python setup.py install``` produces such verbose output on downloading a package, and because
+(in my own repositories) setup.py not finding a package is an error case, I figure verbosely
+experiencing an error case (with some potential to still be working despite it) is preferrable
+to not knowing that an error case ever existed until runtime (when an ```ImportError``` is raised).
+
+So, if we're using setup.py as a 'sanity check' to be sure that our packages exist in the
+environment, what are we actually using to download them?
+
+### pip and requirements.txt
+
+```
+$repo_name/
+├── hello_world
+│   └── __init__.py
+├── requirements.txt  <--
+└── setup.py
+
+```
+
+[pip](https://github.com/pypa/pip) is a tool built specifically for installing python packages,
+which includes dependencies. It supports a wide variety of input specifications (CLI, files, pipes,
+etc) and a gives a tremendous amount of control over the particularities of installing
+dependencies. 
+
+This makes it ideal for explicitly specifying dependencies, package names, download locations,
+specific versions, etc, in order to _actually_ download and install them.
+
+Remember - if a package is specified just by package name in ```setup.py``` and it already exists
+in the Python environment, it won't be redownloaded. Thus, we can explicitly set requirements in
+a requirements.txt file, use the increased control granted to us by pip in order to get _exactly_
+the package we want, and then have ```setup.py``` check that we have everything we mean to (by
+watching the output, and being sure nothing new is downloaded).
+
+This _slightly_ complicates the install procedures from source, as now instead of just a single
+```bash
+$ python setup.py install
+```
+
+you must run
+```bash
+$ pip install -r requirements.txt
+$ python setup.py install
+```
+
+but, in my opinion, this is worth it in order to have fine grain control over the dependency
+resolution process.
+
+### Other Requirements Files
+
+```
+$repo_name/
+├── hello_world
+│   └── __init__.py
+├── requirements_dev.txt  <--
+├── requirements.txt
+└── setup.py
+```
+
+All of my projects include one more requirements file: ```requirements_dev.txt```. This
+requirements file includes all of the dependencies (if there are any) exclusive to running
+tests, as well as a few handy utilities for working with the packaging process itself. This
+allows for developers to just toss in one more step in order to work on the code:
+
+```bash
+$ pip install -r requirements_dev.txt
+$ pip install -r requirements.txt 
+$ python setup.py develop
+```
+
+This also has the nice side effect, assuming you run ```pip install -r requirements_dev.txt```
+first, that you can clobber dependencies in your development environment with development versions,
+while leaving the dependencies for the stable version untouched.
+
+
+### Further Reading
+
+Don't take my word for it, this is just one way to approach documenting dependencies in
+a Python GitHub repository - there are plenty more and plenty of shades of gray. I recommend
+reading the following two articles, to get an understanding of Python dependency handling:
+
+- [setup.py vs requirements.txt @ caremad.io](https://caremad.io/posts/2013/07/setup-vs-requirement/)
+- [install_requires vs Requirements files @ packaging.python.org](https://packaging.python.org/discussions/install-requires-vs-requirements/)
+
+
 ## Packaging
 ### Docker
 #### .dockerignore
 ### pip
 ## Licensing
+
+```
+$repo_name/
+├── hello_world
+│   └── __init__.py
+├── LICENSE               <--
+├── requirements_dev.txt
+├── requirements.txt
+└── setup.py
+```
+
+Licenses are important. 
+
+I'm not a lawyer. 
+
+[Pick the right license](https://choosealicense.com/licenses/). 
+
+Include it with your source in a ```LICENSE``` file in the root of your repository, and abide by any license requirements in your source code.
+
 ## Tests
 ### Local Coverage Metrics
 ## Docs
