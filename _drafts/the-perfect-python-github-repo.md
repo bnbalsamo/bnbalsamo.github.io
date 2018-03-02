@@ -298,6 +298,41 @@ I'm not a lawyer.
 Include it with your source in a ```LICENSE``` file in the root of your repository, and abide by any license requirements in your source code.
 
 ## Tests
+
+```
+$repo_name/
+├── hello_world
+│   └── __init__.py
+├── LICENSE
+├── requirements_dev.txt
+├── requirements.txt
+├── setup.py
+└── tests                   <--
+    ├── test_$componentOne  <--
+    ├── test_$componentTwo  <--
+    └── test_$interfaces    <--
+```
+
+Your repository should contain tests, no ifs, ands, or buts. 
+
+Tests assure you, as well as others, that software will
+provide certain functionalities and behave according to certain constraints. The details
+of tests are many and nuanced, and beyond the scope of this post. 
+
+Python has a variety of testing frameworks, I'll not try to enumerate all of them here, but I
+encourage you to go out and find the ones that will work best for you, and to utilize one of them
+in order to embed provable assertions of functionality into your repository.
+
+My own personal choice here is a combination of good ol' [unittest](https://docs.python.org/3/library/unittest.html)
+straight out of the standard library in combination with [pytest](https://docs.pytest.org/en/latest/)
+(which plays nicely with unittest out of the box).
+
+(We'll get to more exciting kinds of testing a bit further down, in the "Automated Tests" section)
+
+This allows for storing all of the tests outside of the code in a modular fashion. Then, when it
+comes time to run tests, a simple ```py.test``` in the repository root will run all your tests for
+you.
+
 ### Local Coverage Metrics
 ## Docs
 ### README.{md, txt, rst, etc}
