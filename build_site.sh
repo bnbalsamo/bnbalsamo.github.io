@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run --rm -v $(pwd):/srv/jekyll jekyll/jekyll jekyll build
+docker run --rm -v $(pwd):/srv/jekyll jekyll/jekyll gem install minima \&\& jekyll build
