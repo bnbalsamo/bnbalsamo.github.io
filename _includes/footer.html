@@ -19,16 +19,16 @@
       </div>
 
       <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
+        <ul class="contact-list">
           {% if site.github_username %}
           <li>
-            {% include icon-github.html username=site.github_username %}
+              <a href="https://github.com/{{ site.github_username | escape }}">GitHub</a>
           </li>
           {% endif %}
 
           {% if site.twitter_username %}
           <li>
-            {% include icon-twitter.html username=site.twitter_username %}
+              <a href="https://twitter.com/{{ site.twitter_username | escape }}">Twitter</a>
           </li>
           {% endif %}
         </ul>
