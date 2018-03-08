@@ -227,7 +227,7 @@ This _slightly_ complicates the install procedures from source, as now instead o
 $ python setup.py install
 ```
 
-you must run
+you have to run
 ```bash
 $ pip install -r requirements.txt
 $ python setup.py install
@@ -262,6 +262,15 @@ This also has the nice side effect, assuming you run ```pip install -r requireme
 first, that you can clobber dependencies in your development environment with development versions,
 while leaving the dependencies for the stable version untouched.
 
+In this case your ```requirements_dev.txt``` is a bit more verbose, including the 'development'
+versions of all of your dependencies, and to set up you run
+
+```bash
+$ pip install -r requirements_dev.txt
+$ python setup.py develop
+```
+
+Just be sure to remember to updated your ```requirements.txt``` before pulling into master!
 
 ### Further Reading
 
@@ -334,6 +343,102 @@ comes time to run tests, a simple ```py.test``` in the repository root will run 
 you.
 
 ### Local Coverage Metrics
+
+So, you've got some tests, and they're all passing, but those pesky users keep finding bugs!
+
+Here-in lies a critical (and too often forgotten) component of software testing - coverage metrics.
+
+Coverage metrics are a measure of how much of your code is _actually_ tested by your tests, most
+of the time defined as "lines that were executed at some point while your unit tests ran".
+
+To state the obvious, lines of code that aren't run during your tests aren't tested - and so can
+contain those pesky bugs that crop up in releases _even though_ the tests came back green.
+
+There are a variety of methods and tools for measuring coverage, but my tool of choice here
+is a handy python tool called [coverage.py](https://coverage.readthedocs.io/en/coverage-4.5.1/).
+
+This tool allows you to wrap your calls to your tests such that coverage runs the tests while
+also inspecting them and the code you are testing - all while generating metrics about what
+is called and what isn't.
+
+To get setup you'll need to ```pip install coverage``` or (if you've gone with my 
+```requirements_dev.txt``` type approach) go ahead and add coverage to your development dependencies.
+
+After that, instead of using...
+
+```bash
+$ py.test
+``` 
+
+to run your tests, instead use...
+
+```bash
+$ coverage run -m py.test
+```
+
+and....
+
+Your tests ran but there's to other output?!
+
+Not quite - one of the strengths of ```coverage.py``` is that it isn't tightly coupled to reporting
+it's results in a single output format - instead it stores some stats in a file (in the
+directory in which it was run) called ```.coverage``` - this file is then interpretted by coverage
+itself, or other tools, in order to present the coverage metrics to you. For a full explanation
+of the available reporting formats see the docs, but two handy formats to know off the bat are...
+
+```
+$ coverage report
+```
+
+which will dump a minimal report straight into your terminal, and...
+
+```
+$ coverage html
+$ firefox htmlcov/index.html
+```
+
+which will pop open a browser window with some stats, and a nice file browser type web interface
+which will allow you to open files and see (highlighted in red) any lines which are not executed
+by your tests.
+
+#### A Word on Metrics
+
+Different folks have different opinoins on coverage numbers (and testing in general) but you're
+reading my blog so now I get to subject you to part of mine:
+
+100% reported coverage by a single coverage tool, eg ```coverage.py``` or a CI solution, isn't _that_
+important.
+
+> WHAT?!? But untested code is broken code!
+
+Yes, correct. 
+
+However, I have seen many a project, in pursuit of 100% test coverage reported by
+tool $x, write tests that are _completely unreadable_. Tests are exactly as useful as they
+are understandable to developers, tests should be understable as a promise of functionality
+or a constraint of some sort.
+
+Thus, some tests are more appropriately run in different contexts if including them in Python
+unit tests results in too much cruft _just to run a test_ when in reality that functionality
+will never occur from within a python environment.
+
+Almost all of my web applications sit at somewhere below 100% as reported by coverage, because
+I usually have a _second_ set of tests, tests which are a hassle to write in the python context,
+written in bash. The tests in bash don't involve any of the complication of setting up mocks,
+or fixtures, or what have you, instead they are (often) just a lot of cURLs against a flask debug
+server (or, if possible, a complete production-esque deployment).
+
+What does this mean?
+
+- My line coverage numbers from unit tests aren't 100%
+- My tests are _more readable_
+- My functionality is _equally as tested_
+- Occassionally I have to manually read a coverage report to be _absolutely sure_ that what
+    isn't covered by unit tests is covered by bash tests
+
+In my opinion this trade off is worth it, as opposed to convoluting tests and bending over
+backwards in order to get a 100 to appear in a green box in my README.
+
 ## Docs
 ### README.{md, txt, rst, etc}
 ### docs/
