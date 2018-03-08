@@ -440,8 +440,153 @@ In my opinion this trade off is worth it, as opposed to convoluting tests and be
 backwards in order to get a 100 to appear in a green box in my README.
 
 ## Docs
+
+```
+$repo_name/
+├── docs                   <--
+│   ├── conf.py            <--
+│   └── index.rst          <--
+├── hello_world
+│   └── __init__.py
+├── LICENSE
+├── README.md              <--
+├── requirements_dev.txt
+├── requirements.txt
+├── setup.py
+└── tests
+    ├── test_$componentOne
+    ├── test_$componentTwo
+    └── test_$interfaces
+```
+
+Documentation... ah, documentation.
+
+Documentation is a vital part of every code base that sees the light of day. It should, minimally:
+
+- Tell people what your code does
+- Tell people how to get your code to do that
+- (if open source) Tell people how to work on the code
+
+Programmers, in my experience, have a very contentious relationship with documentation. Everyone
+loves when a project they want to use/implement/fork/etc has great documentation. Some legitimately
+enjoy writing documentation, some tolerate writing documentation, and others claim that the only
+kinds of grammar they know is [formal grammar](https://en.wikipedia.org/wiki/Formal_grammar).
+
+I, personally, may not _love_ writing documentation, but I must admit I am a sucker for toying
+with documentation systems, and I do get a warm fuzzy feeling when I see documentation I have
+written pop out the other end of a documentation build system looking all crisp and professional.
+(Are those clickable PDF table of contents links? Why yes they are.)
+
+On this note, recent developments in documentation technology, DevOps, and collaboration tooling
+have made writing documentation much less reminiscent of writing that final paper for a semester
+long project in undergrad, and instead _much_ more like the act of writing code itself, if you
+are willing to utilize some of the same practices as are employed in your code's build pipeline
+in your docs build pipeline.
+
+Documentation also shares another important feature with your code - parts of it are meant
+for internal purposes, other parts might be meant for a more technical audience (eg, other devs
+calling/forking your code), and finally parts of it serve as the "interface" to your project,
+an entrypoint which should serve as a regular way to access functionality (in this case, the
+'functionality' is explanation and reference).
+
+Documentation meant for different purposes should usually be included in your repository (and
+supporting services) in different ways - and keeping in mind how the final product will be
+exposed via your repository, to both yourself and others, is vital in developing a documentation 
+system that works for you. With that in mind, this is how I tend to organize my own documentation...
+
 ### README.{md, txt, rst, etc}
+
+I tend to stick to markdown (.md) in my repository READMEs. This means that they're easy to edit,
+easy enough to read in a text editor, and I can render them in a pinch just about anywhere via
+either local tools or an online markdown editor (eg: just about any GitHub input field).
+
+I consider the README to be the "home page" of my repository in terms of the documentation.
+This means, instead of trying to cram _all_ the information into a single README.md file, I use
+the README to show:
+
+- my projects name
+- it's 1-3 sentence description
+- it's (human readable) version number
+- any "big ticket" functionalities or defining properties
+- some mile high metrics
+
+depending on the project I sometimes also like to throw in...
+
+- default installation procedures
+- "Quick Start"
+- a _tiny_ usage example
+- etc
+
+My guiding principal here is that the repository README should give enough information that
+someone who ends up there will now what the project is, how to get it, how to use it minimally,
+that it works, and where to get the more verbose documentation.
+
 ### docs/
+
+Within my docs folder itself my person choice is to switch to using 
+[rST](http://docutils.sourceforge.net/rst.html) markup utilizing 
+[sphinx](http://www.sphinx-doc.org/en/master/) to build my documentation.
+
+This results in (in my own opinion) slightly less readable docs in a raw text editor, but
+_significantly_ more power for intra and inter-documentation linking, as well as more control
+of formatting and better support/more bells and whistles for things like code blocks.
+
+The sphinx documentation build system uses a configuration file defining build instructions
+(conf.py). It can draw content from a variety of sources, but the most common is separate
+rST pages in the docs directory linked in the index.rst file.
+
+The other **big** difference in switching to sphinx is the tremendously helpful
+[autodoc extension](http://www.sphinx-doc.org/en/stable/ext/autodoc.html). Autodoc
+will extract specially formatted comments, as well as all docstrings, from your code and build
+documentation from them. This means that all of your documentation regarding things like
+function behavior, arguments, argument types, return values, etc stays in one place: the code.
+Once you develop the habit of writing a docstring for functions off the bat, and taking the second
+or two to edit the docstring any time you tweak a function, this becomes _invaluable_.
+
+So, with autodoc handling most of the documentation from docstrings, whats left the include
+in the docs/ folder itself? (Besides the obvious autodoc calls?) In depth documentation (aka,
+deeper than you would want to go in the README.md) which doesn't fit nicely into a docstring.
+I find that detailed installation procedures, usage examples beyond the bare minimum, links
+to supporting projects/documentation, examples, etc, all find their ways into my docs/ folder
+in  most projects. All of the autodocs then fit in nicely under an "API Reference" section.
+
+### docstrings
+
+Your code should have docstrings in it. Docstrings are little bits of documentation which
+live in the source in order to provide in-code documentation for yourself or others while
+you are working on the code base, as well as being the source of the output for the builtin
+[help()](https://docs.python.org/3/library/functions.html#help) function. Minimally they provide
+a brief description of the function, however, more documentation is (almost) always better.
+
+I follow the following rules when generating a docstring, typically:
+
+- (first line) One line description of function
+- (optional, if first line not enough) a longer function description
+- A list of arguments, their expected types, and brief descriptions of each arg
+- A list of kwargs, their expected types, and brief descriptions of each kwarg
+- An explanation of the return value of the function
+- The return type of the function.
+
+This has the effect of producing a reasonable default docstring within the source which,
+when combined with some sphinx syntax, will produce the kind of documentation that most people
+are familar with because it will resemble the 
+[Python standard library docs](https://docs.python.org/3/library/index.html)
+
+[PEP 257](https://www.python.org/dev/peps/pep-0257/) goes over basic docstring conventions,
+though it obviously does not bias itself towards autodoc style rST docstring formatting.
+Despite this, it does provide compatible recommendations I would highly recommend following
+in order to keep your documentation well written, and your source readable.
+
+In order to get pretty, linked documentation via autodocs I recommend reading over a general
+reStructuredText tutorial, the 
+[sphinx intro docs](http://www.sphinx-doc.org/en/stable/tutorial.html), and the docs for the
+[autodoc extension](http://www.sphinx-doc.org/en/stable/ext/autodoc.html#module-sphinx.ext.autodoc).
+
+I have some docstrings written in this style 
+[in my flask_jwtlib source](https://github.com/bnbalsamo/flask_jwtlib/blob/master/flask_jwtlib/__init__.py), and I would also encourage you to seek out some examples from the stdlib in 
+[the python source](https://github.com/python/cpython) as well as any other projects which
+use rST to produce their documentation.
+
 # Repositories and CI Pipelines
 ## Automated Tests
 ## Automated Coverage
