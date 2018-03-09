@@ -283,9 +283,10 @@ reading the following two articles, to get an understanding of Python dependency
 
 
 ## Packaging
+### pip
 ### Docker
 #### .dockerignore
-### pip
+### DockerHub
 ## Licensing
 
 ```
