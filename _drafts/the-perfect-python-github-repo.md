@@ -587,7 +587,90 @@ I have some docstrings written in this style
 [the python source](https://github.com/python/cpython) as well as any other projects which
 use rST to produce their documentation.
 
-# Repositories and CI Pipelines
+# Repositories and Continuous Integration Pipelines
+
+One additional, potentially minor seeming, benefit of storing your source in a repository is
+that it is available over the internet. While previously this may have been more of a convenience
+than anything else (being able to access/work on your source from anywhere), now, with the power
+of webhooks, the fact that your code is available on the internet, and your repository can
+ping other services whenever there is an update, it is possible to build out tools which
+react dynamically to your code changing to do all kinds of cool stuff.
+
+## What's a Webhook?
+
+Webhooks are really the crux that makes all of this dynamic functionality possible. Though they
+have a fancy name, and a lot of people are talking about them in pretty technical contexts,
+web hooks are pretty simple at their core.
+
+Webooks typically have two parts: A 'broadcasting' end and 'receiving' end.
+
+The 'broadcasting end' is an extension to a service that takes an address 
+to shoot some information at when some event happens within that service. 
+
+In the most basic cases "some event" is "pretty much anything" and "some
+information" is information pertinent to the event that occured, along with an explanation
+of what particular event occurred.
+
+The 'receiving end' is some other service that is waiting to hear about events, and when
+it receives information it performs some actions.
+
+The nice thing here is that there is a clean 
+[separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). The 'broadcasting'
+end of the webhook just needs a target and then describes an event it knows about because
+it occurred under it's purview. The 'receiving' end then parses an event description and enacts
+whatever action falls under its purview.
+
+Why is this a big deal? - Because it's an effective way to eliminate the need for 
+[polling](https://en.wikipedia.org/wiki/Polling_system), thus making services where polling
+would have been a bottle-neck _much_ more scalable and responsive.
+
+## What's Continuous Integration?
+
+Continuous Integration (or in some circles Continuous Delivery, or in others Continuous Integration
+and Delivery, or in others Continuous Deployment, it all depends on what you consider to be being
+integrated, deployed, delivered (in)to whatever else) is the use of (usually several) services
+to perform some of the steps necessary to take code after some event (commit, merge, review, etc)
+and move it further through the deployment pipeline.
+
+In a personal project the deployment pipeline might look something like...
+
+- You branch from master and create $FeatureBranch
+- You write code in $FeatureBranch until the feature is complete, and
+    no previous work has been broken (unintentionally) by any changes
+- You submit a pull request against your master branch 
+- You merge $FeatureBranch into master
+- master is re-deployed to production at the next opportunity
+
+in a work context there might be a few extra steps...
+
+- $DevTeam branches from master creating $FeatureBranch
+- $DevTeam works in $FeatureBranch until the feature is complete, and
+    no previous/contemporaneous work has been broken (unintentionally) by any changes.
+- $DevTeam submits a pull request for $FeatureBranch to be merged into master
+- $FeatureBranch is reviewed by $ManagementTeam
+- $FeatureBranch is reviewed by $QaTeam
+- $FeatureBranch is reviewed by $SecurityTeam
+- Once $ManagementTeam, $QaTeam, and $SecurityTeam all sign off, $FeatureBranch
+    is merged into master by $ManagementTeam
+- master is redeployed to production at the next opportunity
+
+Your own branching policies, organizational charts, stakeholders, etc may differ, but you
+get the idea. Deployment pipelines are how code goes from a feature request/bug report to 
+a reality in a production system.
+
+Both of these flows can seem daunting at first, but with the addition of some automation and
+standardization it becomes possible to:
+
+- Speed up feedback loops required for different parties to do their parts
+- Keep people in the loop, and centralize 'canonical' communications as much as possible
+- Automate large repeatable portions of the above workflows, either for all projects
+    or in a project specific manner.
+
+And that is what continuous integration is all about - speeding up the processes involved in
+developing, testing, integrating, and deploying software (where appropriate) such that the
+project can keep moving forward _continuously_ and incrementally instead of infrequently and
+in leaps and bounds.
+
 ## Automated Tests
 ## Automated Coverage
 ## Automated Docs
