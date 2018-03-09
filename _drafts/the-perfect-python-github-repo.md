@@ -672,8 +672,80 @@ project can keep moving forward _continuously_ and incrementally instead of infr
 in leaps and bounds.
 
 ## Automated Tests
+
+Implementing automated testing is by far one of the biggest changes I have ever made to my
+own personal workflows, and it has _without a doubt_ made me a better programmer. It is
+(almost) impossible to over-state it's usefullness once you've got it up and running in
+your repository.
+
+Earlier we went over including tests in your repository and why they're important, now we
+can use CI technologies to run those tests on just about every event during the entirety of the
+pipeline to be sure that nothing breaks anywhere along the way.
+
+Did I say just about every event? I did.
+
+- Commits
+- PRs
+- Merges
+- You sneezed and maybe hit the keyboard with the source open
+    - ```git add -u && git commit -m "sneezed" && git push```
+- You wrote a new test
+- You edited an old test
+- It's lunch time
+- You're back from lunch
+- You feel like it
+
+When's a good time to run your tests? All the time. Commit often.
+
+Will your tests come back red sometimes? Yes.
+
+\<aside\>
+
+This will make your git log look like a log of messy development work (reality). 
+
+Is it pretty and easy to follow? No - not always.
+
+I (personally) think there is value in retaining all
+of this information. If you disagree there are alternatives to committing often to fire up
+tests, or there is always 
+[rewriting history](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) to make things
+cleaner in your master branch's git log. However, I find that the ease of committing often to run
+tests for feedback, along with the benefits of committing often on its own, far outweigh the benefits of a 'clean' git log.
+
+\</aside\>
+
+The key here, is a good CI solution allows this testing to be going on all the time, in the
+background, with no (or minimal) effort, providing feedback to you each time the tests run.
+Sometimes you'll commit and expect your tests to be broken because development is in some
+in-between state, other times you'll commit and expect them to pass. Both of those cases
+provide valuable information both in the positive and negative cases which you'll be glad
+you have when invariably there's some debugging to do.
+
+### TravisCI
+
+```
+$repo_name/
+├── docs
+│   ├── conf.py
+│   └── index.rst
+├── hello_world
+│   └── __init__.py
+├── LICENSE
+├── README.md
+├── requirements_dev.txt
+├── requirements.txt
+├── setup.py
+├── tests
+│   ├── test_$componentOne
+│   ├── test_$componentTwo
+│   └── test_$interfaces
+└── .travis.yml             <--
+```
+
 ## Automated Coverage
+### Coveralls.io
 ## Automated Docs
+### readthedocs.io
 ## Automated Deployment
 # Github Goodies
 ## Issue, PR, etc Templates
