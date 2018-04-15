@@ -1,0 +1,90 @@
+---
+layout: presentation
+pres_title: Docker For Developers - Part 2
+---
+
+class: center, middle
+
+# Docker for Developers
+## Part 2
+
+---
+
+# Agenda
+
+What you should probably know before this talk
+
+- Docker for Developers Part 1
+- Some knowledge of remote VCS solutions (eg: github) 
+
+What (I hope) this talk teaches you
+
+- What docker regestries are
+- Why you may want to use docker registries
+- The parts of a docker registry
+- What the DockerHub is
+- How to retrieve published images from the Dockerhub
+- How to retrieve published images from other docker registries
+- How to publish images to the Dockerhub
+- How to publish images to other docker registries
+
+---
+
+# Docker Registries
+
+Docker registries are network services which allow for the
+simple distribution of Docker images.
+
+Docker registries implement the [Docker Registry HTTP API](https://docs.docker.com/registry/spec/api/)
+in order to allow clients to search, upload, and download docker images without
+having to distribute Dockerfiles, build contexts, and other supporting material.
+
+Docker Registries support operations on _images_ - not containers.
+
+---
+
+# Docker Registry Use Cases
+
+Docker registries are useful for several reasons
+
+--
+- They're network accessible
+    - Available to team/services/anyone with access
+--
+- They store built artifacts
+    - Unifies built artifacts across environments/deployments
+    - Caches builds, increasing speeds
+    - No need to distribute build contexts
+--
+- They allow for organization of images
+    - Relative references, versions
+        - 3
+        - 3.5
+        - latest
+        - etc
+
+---
+
+
+# The Parts of a Docker Registry
+
+Docker Registries Have Parllels in Git VCS's
+
+--
+
+```
+Registry   --> Repository --> Image  --> Tag --> Layer
+```
+```
+Git Server --> Repository --> Branch --> Tag --> Commit
+```
+
+--
+
+Registries contain many repositories
+
+Repositories _may_ contain many images
+
+Images _may_ be represented by several tags
+
+Tags represent a collection of layers
