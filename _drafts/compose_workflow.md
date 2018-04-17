@@ -28,6 +28,21 @@ A Docker Compose workflow allows for software developers to work effectively in 
 frameworks, and effectively employ Agile development methodologies while producing deliverables
 appropriate for use by other developers, quality assurance, and production deployment teams.
 
+When all is said and done the workflow can be visualized like so:
+
+![Docker Compose Workflow]({{ "/assets/docker_compose_workflow_diagram.jpg" | absolute_url }})
+
+Development environments are cleanly contained and made managable by a single individual or team.
+Each development environment is responsible for producing a deliverable component which can be
+utilized by all other development environments to provide the promised functionality, as well as
+the QA environment for testing. This means that services can scale
+
+Services can be tested in isolation as well as in their production
+contexts, and build requirements, configuration details, and service interdependencies are made
+explicit in the docker build and compose files. This drastically reduces the generation of technical
+debt, makes deployments details know factors, and interfaces _exceptionally_ well with Continuous 
+integration pipelines in order to facilitate rapid development, testing, and deployment.
+
 ## Project Orchestration
 
 Employing a Docker Compose workflow requires some project level orchestration in order to be
@@ -65,7 +80,15 @@ In addition to the image repository and tagging specifications, the project must
 distribute pieces of information and documentation. This information includes certain 'specification' 
 like information (eg, the interfaces and contracts that each service supports) as well as certain 
 'base' artifacts - the most important of which is the base docker-compose upon which the QA environment 
-will be built directly, and which each development environment should be based on.
+will be built directly, and which each development environment should be based on. A centralized
+source code version control repository (eg, git) is often the most appropriate place to coordinate
+the sharing of knowledge and documentation.
+
+Management of this centralized knowledge, as well as the generation of tagging structures and workflows
+can be handled by different teams or individuals depending on the project management methodology which
+is being employed, but a coherent plan regarding who manages these aspects of the project, and what
+responsibilities and capabilities are held by each team (dev teams, QA teams, project managers, etc)
+is essential.
 
 ## The Local Development Environments
 
@@ -73,8 +96,8 @@ The crux of the docker compose workflow is the development environments for each
 each of these development environments is built by the project specific docker-compose.yml file. This
 file has two very important attributes:
 
-1) It pulls all the other services from the image repository
-2) It defines an image _and_ a build context for the local service
+1. It defines an image _and_ a build context for the local service
+2. It pulls all the other services from the image repository
 
 This allows the local development environment to pull all the other portions of the project from the
 centralized repository, and builds the local service from the build context - allowing the developer to
@@ -98,6 +121,11 @@ the docker-compose file which is being used in all of the development environmen
 that it defines **no** build contexts. This docker compose should pull all of the published build artifacts,
 from each of the development environments, and they should work together.
 
+This should, provided each project presents the proper interfaces, give QA the ability to run unit tests
+against each separate project in isolation, as well as integration tests with all of the services in concert.
+It also provides the opportunity for QA teams to devise their own tests to be run against the current latest
+builds of each development service and run them at any time.
+
 ## Production Deployment
 
 - Productionization
@@ -106,39 +134,4 @@ from each of the development environments, and they should work together.
 - Equivalent of "merge to master"
 
 ## Conclusion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
