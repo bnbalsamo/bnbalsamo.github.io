@@ -35,13 +35,13 @@ When all is said and done the workflow can be visualized like so:
 Development environments are cleanly contained and made managable by a single individual or team.
 Each development environment is responsible for producing a deliverable component which can be
 utilized by all other development environments to provide the promised functionality, as well as
-the QA environment for testing. This means that services can scale
+the QA environment for testing. 
 
 Services can be tested in isolation as well as in their production
-contexts, and build requirements, configuration details, and service interdependencies are made
+contexts. Build requirements, configuration details, and service interdependencies are made
 explicit in the docker build and compose files. This drastically reduces the generation of technical
 debt, makes deployments details know factors, and interfaces _exceptionally_ well with Continuous 
-integration pipelines in order to facilitate rapid development, testing, and deployment.
+Integration pipelines in order to facilitate rapid development, testing, and deployment.
 
 ## Project Orchestration
 
@@ -65,6 +65,11 @@ Each service should, ideally, be constructed within a single software stack whic
 requirements. Also, each service should include debug logging understandable to those without knowledge
 of the stack, and with minimal knowledge of the source code beyond the fulfillment of the functionalities
 promised by the interface.
+
+Once these minimum requirements have been met writing each application such that it abides by the rules
+of the [12 Factor App](https://12factor.net) leads to utilizing industry best practices, and synergizes
+excellently with the requirements for running each service within a properly dockerized environment,
+and within a compose based workflow.
 
 ### The Infrastructure
 
@@ -128,10 +133,40 @@ builds of each development service and run them at any time.
 
 ## Production Deployment
 
-- Productionization
-- Pinned requirements
-- Pinned tags
-- Equivalent of "merge to master"
+Production deployments are often project specific, informed by architecture and infrastructure constraints,
+preferences, requirements, and special considerations. Despite this, a docker-compose based workflow
+can help make production deployment easier, whether you are deploying containers into production or not.
+
+In the event that you deploying containers into production it is often optimal to make the production
+deployment as similar as possible to the QA builds and even the local development builds, or (perhaps
+more accurately) to make the QA and Local builds and environments as similar as possible to production.
+If, for whatever reason, this isn't possible, production builds should be formalized and their differences
+from the local and QA builds documented. If possible these builds should be formalized into alternate
+base images for the application containers to be built on top of or within.
+
+If you are not deploying containers to production the dockerization of the QA environment still serves
+as valuable documentation as to the configuration of th services in a production-esque environment.
+In combination with documentation detailing the differences between the QA environment and the production
+environment, as well as documentation detailing any configuration of the hosts required beyond what is
+required for the configuration of the docker machines, a formal production deployment can be had with
+comparatively little work, leveraging work done in order to configure previous environments whenever
+possible.
 
 ## Conclusion
 
+Docker Compose workflows provide the tools to allow modern software development teams to work effectively
+on large, service based, systems. The local development environments provide developers with the ability
+to build services which are able to be built, tested, and deployed locally both in isolation and in the
+context of the larger systems architecture which they are meant to participate in. The remote repository
+serves as the glue which holds these developmenet enironments together, as well as a clean deliverable
+specification for each team. The coupling of the build processes between the development environments
+and the QA environments provides a delivery pipeline and an easy way to avoid common issues of
+configuration and stack mismatch between developers and QA. Finally, the dockerization and delivery
+mechanisms provide convenient methods for packaging software for delivery to production environments
+as containers - or, if production is not containerized, implicitly provide a head start on standardizing
+and documenting deployments into other environments.
+
+These workflows can be applied to a greenfield projects at the offset, or existing projects (with a bit
+of elbow grease) can be converted to utilize these workflows. I hope this post has demonstrated the
+benefits and methodologies of a compose based workflow, and that you consider utilizing one for your
+(or your team's) next project!
