@@ -3,73 +3,71 @@ layout: post
 title: A Docker Compose Workflow For Teams
 ---
 
-## Introduction
+## Why Use Docker Compose
 
-Docker provides a variety of benefits to both the software development
-and distribution pipelines. One such benefit is explicitly stating and formalizing
-build processes and configurations - allowing for services to be distributed and
-run in _all_ dockerized environments.
+Docker can help you develop and distribute software. One of the ways it can help is by 
+explicitly stating and formalizing build processes and configurations, allowing 
+services to be distributed and run in _all_ dockerized environments.
 
-Docker compose allows for multiple dockerized services to be arranged to work together,
-explicitly stating the ports on which the services present their functionality. And
-defining the ways in which services can reach/reference each other.
+[Docker Compose](https://docs.docker.com/compose/) allows multiple dockerized services 
+to work together by both explicitly stating the ports on which the services present 
+their functionality and defining the ways in which services can reach or reference each other.
 
-Modern software development practices, like Agile and associated methodologies, require
-accomplishing tasks in parallel whenever possible. Software architectures increasingly
-accomplish business logic by implementing several services which deliver functionality. 
-Frequently, these services are worked on by different individuals or teams, are written in 
-different languages, and utilize different software stacks.
+Modern software development practices recommend accomplishing tasks in parallel whenever possible. 
+By implementing services with specific functions, software architecture increasingly 
+drives business logic. Frequently, these services are worked on by different individuals or teams, 
+are written in different languages, and utilize different software stacks.
 
-In combination, these factors mean that software developers need access to development
-environments which include a wide variety of services, and need to be able to deliver ongoing
-work to the rest of their team in order to avoid serializing workflows and introducing blockers.
+Because different people are working on different services with different languages and different
+software stacks, software developers need access to diverse development environments. Their
+development environments need to include a wide variety of services and support the developers as
+they delivery ongoing work to the rest of their team to introducing blockers in their work.
 
-A Docker Compose workflow allows for software developers to work effectively in these modern
-frameworks, and effectively employ Agile development methodologies while producing deliverables
-appropriate for use by other developers, quality assurance, and production deployment teams.
+A Docker Compose workflow allows software developers to work effectively in these modern
+frameworks, effectively practice Agile development methodologies, and produce useful deliverables
+to developers, quality assurance, and production deployment teams.
 
-When all is said and done the workflow can be visualized like so:
+You can visualize the workflow like this:
 
 ![Docker Compose Workflow]({{ "/assets/docker_compose_workflow_diagram.jpg" | absolute_url }})
 
-Development environments are cleanly contained and made managable by a single individual or team.
-Each development environment is responsible for producing a deliverable component which can be
-utilized by all other development environments to provide the promised functionality, as well as
+Development environments are contained and managable by a single individual or team. Each 
+development environment is responsible for producing a deliverable component that can be
+used by other development environments to provide the promised functionality, and used by
 the QA environment for testing. 
 
-Services can be tested in isolation as well as in their production
-contexts. Build requirements, configuration details, and service interdependencies are made
-explicit in the docker build and compose files. This drastically reduces the generation of technical
-debt, makes deployments details know factors, and interfaces _exceptionally_ well with Continuous 
-Integration pipelines in order to facilitate rapid development, testing, and deployment.
+Services can be tested both in isolation and in their production contexts. Build requirements, 
+configuration details, and service interdependencies can be made explicit in the Docker build 
+and compose files. This helps prevent technical debt, makes deployments details known factors,
+and interfaces _exceptionally_ well with Continuous Integration/Continuous Deployment (CI/CD) 
+pipelines in order to facilitate rapid development, testing, and deployment.
 
 ## Project Orchestration
 
 Employing a Docker Compose workflow requires some project level orchestration in order to be
-successful. The workflow involves minimal, but vital, infrastructure, as well as coherent project
-level design.
+successful. The workflow involves minimal, but vital, infrastructure, as well as coherent 
+project-level design.
 
 ### Project Design
 
-Projects which abide by best software design practices are often easily mapped into docker compose
-driven workflows. There are several factors which should be kept in mind, however, when designing
-and managing projects in order to get the most out of these practices.
+Projects that follow best practices in software design are often easily mapped into Docker Compose
+driven workflows. Keep in mind several additional factors when designing and managing projects 
+in order to get the most out of these practices.
 
-Projects should be split into services which can be encapsulated such that they present a cleanly
-delineated interface. This interface should present functionality through standardized
-interfaces with well documented input requirements and specifications, as well as output values. 
-Project configuration must also be well documented, and configuration values should be 
+Separate projects into services that can be encapsulated in such a way that they present a cleanly
+delineated interface. This interface must present functionality through standardized
+interfaces with well-documented input requirements and specifications and output values. 
+The project configuration must also be well documented, and configuration values must be 
 set at run time in order to allow the service to be run in local, QA, and production environments.
 
-Each service should, ideally, be constructed within a single software stack which does not duplicate
-requirements. Also, each service should include debug logging understandable to those without knowledge
-of the stack, and with minimal knowledge of the source code beyond the fulfillment of the functionalities
-promised by the interface.
+Construct each service within a single software stack that does not duplicate requirements. Each service 
+must also include debug-level logging understandable to those both without knowledge of the stack and with 
+little knowledge of the source code beyond the fulfillment of the functionalities promised by the interface.
 
-Once these minimum requirements have been met writing each application such that it abides by the rules
-of the [12 Factor App](https://12factor.net) leads to utilizing industry best practices, and synergizes
+After these minimum requirements have been met, write each application so that it abides by the rules
+of the [12 Factor App](https://12factor.net). This helps you follow industry best practices, and synergizes
 excellently with the requirements for running each service within a properly dockerized environment,
-and within a compose based workflow.
+and within a compose-based workflow.
 
 ### The Infrastructure
 
