@@ -1,7 +1,6 @@
 sudo: required
 language: bash
-script: ./build_site.sh 
-    && docker build . -t proj 
+script: docker build . -t proj 
     && docker run -d -p 80:80 proj 
     && response=$(curl --write-out %{http_code} --silent --output /dev/null localhost) 
     && [[ $response == 200 ]] 

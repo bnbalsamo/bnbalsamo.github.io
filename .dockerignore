@@ -1,2 +1,9 @@
-**
-!_site
+export_site_to_host.sh
+make_post.sh
+make_pres.sh
+test_site.sh
+make_speaker_notes.py
+README.md
+.git
+.gitignore
+.travis.yml
