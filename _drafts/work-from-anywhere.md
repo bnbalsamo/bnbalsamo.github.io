@@ -13,7 +13,7 @@ and I think it has some substantial benefits:
   applications that aren't installed, hit hotkeys that aren't configured, and
   run bash aliases that aren't defined.
 
-Overall, I want to work in familar workspaces no matter the host I'm actually working
+Overall, I want to work in familiar workspaces no matter the host I'm actually working
 from. I think there are two major strategies to accomplish this:
 
 * Go to a workspace I've already configured.
@@ -24,7 +24,7 @@ Both of these strategies tend to be useful in different circumstances:
 If I'm working on an open source project from lackluster hardware, or on a machine I'm only
 using briefly, it makes more sense to **go to** a workspace I've already configured. 
 
-If I'm working on propietary code using a client supplied laptop I'll be using regularly 
+If I'm working on proprietary code using a client supplied laptop I'll be using regularly 
 it makes sense to **bring my configurations to** this new workspace.
 
 In order to accomplish either of these strategies I use a couple of ubiquitous tools and
@@ -32,7 +32,7 @@ battle tested workflows. While there are several excellent blog posts (which I'v
 to later in this post) about different parts of this setup I don't think I've seen a single 
 post or tutorial which ties them all together - so I'm giving it a go.
 
-## Prerequesite: Ditch the GUI 
+## Prerequisite: Ditch the GUI 
 
 I've found that GUIs and GUI applications violate several criteria for setting up
 a modular workspace that lends itself to being easily distributed to different environments, or
@@ -74,7 +74,7 @@ serve standard needs in order to get work done:
   to open new terminals or applications in.
 - [vim](https://www.vim.org/) is my editor of choice, giving me the ability to edit files. 
 
-Beyond the basics I use a vareity of other tools depending on the specific work
+Beyond the basics I use a variety of other tools depending on the specific work
 I'm trying to get done.
 
 This works fine most of the time, but SSH has some annoying behaviors:
@@ -91,12 +91,12 @@ This works fine most of the time, but SSH has some annoying behaviors:
 
 Mosh sits on top of SSH and provides  a near identical interface to ssh + some nice benefits:
 
-- the ability to reconnect after sleeping/hibernating whatever local host I'm on, or romaing between
+- the ability to reconnect after sleeping/hibernating whatever local host I'm on, or roaming between
   different wifi networks.
 - some basic persistence, so my foreground processes don't die if my local host loses connection.
 
 Mosh is easy to setup, it installs just like any other application, is available in most Linux
-distributions' package managers, it doesn't require any priviliged code execution (sudo),
+distributions' package managers, it doesn't require any privileged code execution (sudo),
 and it doesn't require a daemon. Putting all of that together, it means that if SSH is already
 running on the host mosh can be installed and utilized entirely from userland on both the local
 and remote hosts.
@@ -112,15 +112,13 @@ multiple virtual terminal windows within a single "real" terminal window - meani
 in the foreground can run happily while I open another tab or split and continue working.
 
 The interplay between mosh and tmux can be a bit confusing off the bat, and getting them both
-configured and working together in harmony (and utilizing them effeciently) can be tricky.
+configured and working together in harmony (and utilizing them efficiently) can be tricky.
 [This excellent blog post](https://blog.filippo.io/my-remote-shell-session-setup/) goes over configuring
 this portion of a robust remote workspace setup with mosh and tmux working together, so I'll avoid 
 reiterating its content here.
 
 With this setup, I can use any host's ssh client, or install the mosh client, and
 travel to my own pre-configured workspace from anywhere!
-
-######################
 
 ## Strategy 2: Bring My Configurations to ME
 
