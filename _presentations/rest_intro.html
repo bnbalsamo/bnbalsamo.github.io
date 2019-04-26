@@ -1,0 +1,441 @@
+---
+layout: presentation
+pres_title: An Introduction to APIs and REST
+---
+
+class: center, middle
+# An Introduction to APIs and REST
+
+.center[Slides: https://bnbalsamo.github.io/presentations/rest_intro.html]
+
+---
+
+# Agenda
+
+- What is an API?
+- Why use an API?
+- What is REST?
+- How do you use a REST API?
+- **Use a REST API!**
+- Whats a webhook?
+- How are webhooks related to APIs?
+
+???
+
+- get a basic understanding of all the exciting acronyms, APIs, REST, etc
+- once we know what they are, figure out how to use them
+- Use an API!
+- Quickly discuss webhooks if there's time.
+
+
+- The majority of this talk is meant to be interacting with the API!
+- Please participate, or at least look over someone elses shoulder!
+
+---
+
+# What's an API?
+
+- **A**pplication
+- **P**rogramming
+- **I**nterface
+
+
+- A way to interact with an application or service. 
+- Optimized for automating the application or interacting with it
+  from another program.
+  - Interface built for _machines_, not people.
+
+## Two Primary Types
+
+- Local
+- **Web**
+
+???
+
+- APIs are how programs expose functionality to outside systems
+    - Useful for integration and extension!
+- APIs are interfaces for machines, not people!
+    - But the first step to building a program to use them
+      is using one yourself!
+- APIs vs RPA
+    - RPA is teaching machines to use human interfaces
+    - APIs are an interface built for machines
+    - Both are appropriate in different scenarios
+
+- Not all APIs are web APIs, some expose their functionality through
+  a different medium, like a programming language or a non-http socket
+  connection, but for the rest of this talk whenever I say API it's safe
+  to assume that I'm discussing a web API.
+
+---
+
+# Who has APIs?
+
+.cols[
+.col40[
+- [Github](https://developer.github.com/v3/)
+- [Office365](https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/)
+- [Slack](https://api.slack.com/)
+- [NOAA](https://www.weather.gov/documentation/services-web-api)
+- [Google Maps](https://developers.google.com/maps/documentation/)
+- [Docusign](https://developers.docusign.com/)
+- [LinkedIn](https://developer.linkedin.com/docs/rest-api#)
+- [Salesforce](https://developer.salesforce.com/docs/api-explorer)
+- [Google Calendar](https://developers.google.com/calendar/)
+- [Chase](https://jpmcsso.jpmorgan.com/sso/action/federateLogin?domainName=chase.com*jpmchase.com*jpmorganchase.com&URI=https%3a%2f%2fdeveloper.chase.com%2f&msg=+&securityLevel=0&cs=zFZ7m8J%2fq%2fM4APy6LW%2b4FTi9rfQ%3d)
+
+]
+.col10[]
+.col40[
+- [Twitter](https://developer.twitter.com/en/docs.html)
+- [Facebook](https://developers.facebook.com/docs/apis-and-sdks/)
+- [NASA](https://api.nasa.gov/#getting-started)
+- [YouTube](https://developers.google.com/youtube/v3/)
+- [Twilio](https://www.twilio.com/docs/usage/api)
+- [Gmail](https://developers.google.com/gmail/api/)
+- [Wikipedia](https://www.mediawiki.org/wiki/REST_API)
+- [Instagram](https://www.instagram.com/developer/)
+- [PayPal](https://developer.paypal.com/docs/api/overview/)
+- [SoundCloud](https://developers.soundcloud.com/docs/api/guide)
+]
+]
+
+
+.center[Lots of Organizations!]
+
+--
+
+.center[Why?]
+
+- They allow their services to interact more easily.
+- They make automation easier.
+- They allow others to interact with their services to create more value.
+
+???
+
+- Lots of companies have APIs
+- Useful for interoperability, exposing functionality, supporting extension, etc.
+- Becoming more prevalent in environments with microservices, distributed architectures,
+  single page applications, multiple front ends based on the same data, etc.
+- We're going to discuss REST APIs. Not every API is a REST API, but plenty of them are. 
+  APIs are organized based on what their intended use is.
+
+---
+.cols[
+.col40[
+### What's REST?
+
+A method for organizing an API.
+
+Allows for communication over HTTP!
+
+- **Re**presentational
+- **S**tate
+- **T**ransfer
+
+As opposed to...
+
+- [SOAP](https://en.wikipedia.org/wiki/SOAP)
+    - _Simple_ Object Access Protocol
+- [RPC](https://en.wikipedia.org/wiki/Remote_procedure_call)
+    - Remote Procedure Call
+]
+.col10[]
+.col40[
+### REST Object Types
+
+- Collection
+    - A collection of objects.
+
+- Object
+    - A representation of the state of one thing.
+
+- Subcollection
+    - A collection, limited in some way.
+]
+]
+
+???
+
+- REST is a method of organizing APIs
+- **State**
+    - You tell the API what state you want the objects in
+        - You DON'T tell it how to get there.
+
+
+- There are other kinds of APIs
+    - SOAP: Precursor to REST, kind of, but didn't live up to its _simple_ name.
+    - RPC: Less often implemented over HTTP, still relevant, but mostly for distributed computing.
+
+
+- REST organizes information about application state into three general types.
+    - Collection
+    - Object
+    - Subcollection
+
+
+- A collection is like the whole spreadsheet
+- An object is like a single row
+- A subcollection is... like some rows from the spreadsheet with some quality
+
+---
+
+# A Quick HTTP Refresher
+.cols[
+.col60[
+HTTP: Hypertext Transfer Protocol
+
+**http**://google.com
+
+HTTP Request --> Response Flow
+- A client sends a request to a server.
+- The server processes the request.
+- The server sends a response to the client.
+
+Data can be in three places in an HTTP request or response:
+
+1. The request header
+2. URL query parameters
+3. The request body
+]
+.col10[]
+.col20[
+HTTP Verbs
+
+- GET
+- POST
+- PUT
+- PATCH
+- DELETE
+
+
+- OPTIONS
+- HEAD
+]
+]
+
+???
+
+- Web APIs utilize HTTP to communicate.
+
+- HTTP is the same thing your browser uses
+
+- HTTP is a request/responses protocol.
+    - Client sends request to server
+    - Server processes request
+    - Server sends response to client
+
+Requests and responses have a variety of ways to store data or metadata.
+- Header
+- Query params (url)
+- The request body
+
+HTTP requests are split up into different "verbs" based on what the action is meant
+to do.
+
+In different contexts these verbs might mean slightly different things.
+
+In the context of APIs...
+
+---
+
+# CRUD
+.cols[
+.col70[
+A handy acronym for remembering how you can effect state in a REST API.
+
+- **C**reate
+- **R**ead
+- **U**pdate
+- **D**estroy
+
+In a standard REST API HTTP verbs are mapped onto these concepts.
+
+Thus, the HTTP verb of a request represents a... verb, and the endpoint
+itself represents a noun.
+
+**Different kinds of requests sent to the same endpoint have different effects!**
+
+The endpoints emit information in a format called [JSON](https://en.wikipedia.org/wiki/JSON).
+]
+.col10[]
+.col20[
+|  HTTP  |     | CRUD             |
+|:------:|:---:|:----------------:|
+|   GET  | --> | Read (list)      |
+|  POST  | --> | Create           |
+|   PUT  | --> | Update (Full)    |
+|  PATCH | --> | Update (Partial) |
+| DELETE | --> | Destroy          |
+]
+]
+
+???
+
+REST maps the HTTP verbs onto different ways to change object state.
+
+**CRUD**
+
+This means that a single endpoint can serve multiple purposes depending on the 
+kind of request you send to it!
+
+---
+
+# An Example API
+
+Collections
+- Authors
+- Quotes
+
+Objects
+- Author
+- Quote
+
+Subcollections
+- Quotes by an author
+
+???
+
+What does our service do?
+
+Stores data about authors and quotes.
+
+---
+
+# An Example API
+
+## Author Data
+
+|        Name       | id | Date of Birth | Date of Death | Posted At | Updated At | Quotes |
+|:-----------------:|:--:|:-------------:|:-------------:|:---------:|:----------:|:------:|
+| George Washington |  1 |   1732-02-22  |   1797-03-04  |    ...    |     ...    |   2,3  |
+| Linus Torvalds    |  2 |   1969-12-28  |       -       |    ...    |     ...    |   1    |
+
+
+## Quote Data
+
+| id |              content              |   context   | Posted At | Updated At | Author |
+|:--:|:---------------------------------:|:-----------:|:---------:|:----------:|:------:|
+|  1 |  Talk is cheap. Show me the code. |      -      |    ...    |     ...    |    2   |
+|  2 |        I can not tell a lie       |      -      |    ...    |     ...    |    1   |
+|  3 | It is better to offer no excuse than a bad one.| - | ...    |     ...    | 1      |
+
+
+???
+
+Data schema + relations
+
+---
+
+# Endpoints
+
+- Collections
+    - /authors
+    - /quotes
+
+- Objects
+    - /authors/*id*
+    - /quotes/*id*
+
+- Subcollections
+    - /authors/*id*/quotes
+
+???
+
+Endpoints to park our collections and objects at...
+
+---
+
+# Exercise 0: Read the Docs
+
+But before we go any further hypothesizing our API...
+
+--
+
+How about we just take a look at it?
+
+$API_URL/docs
+
+---
+
+# Tools
+
+When working with APIs after a certain point a browser just doesn't cut it.
+
+There _a ton_ of tools for working with APIs, but here are some of my favorites...
+
+
+- [Postman](https://www.getpostman.com/)
+    - Solid GUI application for interacting with APIs, plenty of features.
+- [HTTPie](https://httpie.org/)
+    - Command line tool written in python - great if you're already familiar with requests
+    - Strictly for HTTP, so able to make some sane assumptions
+    - Cross platform
+- [curl](https://curl.haxx.se/)
+    - Available pretty much anywhere `bash` is.
+        - mac, linux, etc
+    - Supports a wide range of network protocols
+    - The de-facto standard
+
+We'll be using postman today, but I encourage you to google the others!
+
+---
+
+# Exercise 1: Authors 
+
+- Get a list of authors
+- Get an author entry
+- Create an author entry
+
+---
+
+# Exercise 2: Quotes
+
+- Get a list of quotes
+- Get a quote entry
+- Get a list of quotes by an author
+- Create a quote entry
+
+---
+
+# Exercise 3: Update Data
+
+- Add a birth and/or death date to an author.
+- Add some context to a quote.
+- Explore the difference between the `PUT` and `PATCH` methods.
+
+---
+
+# Exercise 4: Delete Data
+
+- Delete an author (what happens to their quotes?)
+- Delete a quote (what happens to the author?)
+
+---
+
+# Webhooks
+
+- A way to take an action in response to another event
+    - Sometimes called "event APIs"
+- Register _your_ callback URL, specify what events to be alerted on.
+    - You're now the server, rather than the ciient.
+- The service sends you a portion of the API automatically, you take
+  whatever action you want!
+
+---
+class: middle
+
+.center[**Thank you**]
+
+.center[Questions?]
+
+.center[Brian Balsamo]
+.center[brian@brianbalsamo.com]
+
+---
+class: middle
+
+- Slides
+    - https://bnbalsamo.github.io/presentations/rest_intro.html
+- Demo API Source
+    - https://github.com/bnbalsamo/rest_demo_api
