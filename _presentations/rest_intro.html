@@ -17,7 +17,7 @@ class: center, middle
 - What is REST?
 - How do you use a REST API?
 - **Use a REST API!**
-- Whats a webhook?
+- What's a webhook?
 - How are webhooks related to APIs?
 
 ???
@@ -107,9 +107,9 @@ class: center, middle
 
 .center[Why?]
 
-- They allow their services to interact more easily.
-- They make automation easier.
-- They allow others to interact with their services to create more value.
+- APIs allow different services to interact more easily.
+- APIs make automation easier.
+- APIs allow others to interact with their services to create more value.
 
 ???
 
@@ -200,7 +200,7 @@ Data can be in three places in an HTTP request or response:
 ]
 .col10[]
 .col20[
-HTTP Verbs
+HTTP Methods
 
 - GET
 - POST
@@ -230,10 +230,10 @@ Requests and responses have a variety of ways to store data or metadata.
 - Query params (url)
 - The request body
 
-HTTP requests are split up into different "verbs" based on what the action is meant
+HTTP requests are split up into different methods based on what the action is meant
 to do.
 
-In different contexts these verbs might mean slightly different things.
+In different contexts these methods might mean slightly different things.
 
 In the context of APIs...
 
@@ -242,21 +242,22 @@ In the context of APIs...
 # CRUD
 .cols[
 .col70[
-A handy acronym for remembering how you can effect state in a REST API.
+A handy acronym for remembering how you can change state in a REST API.
 
 - **C**reate
 - **R**ead
 - **U**pdate
 - **D**estroy
 
-In a standard REST API HTTP verbs are mapped onto these concepts.
+In a standard REST API HTTP methods are mapped onto these concepts.
 
-Thus, the HTTP verb of a request represents a... verb, and the endpoint
-itself represents a noun.
+Thus, the HTTP methods of a request represents a verb, and the endpoint (URL)
+represents a noun. A request can be thought of as a simple statement.
 
 **Different kinds of requests sent to the same endpoint have different effects!**
 
-The endpoints emit information in a format called [JSON](https://en.wikipedia.org/wiki/JSON).
+Endpoints return information serialized, usually in a format like [JSON](https://en.wikipedia.org/wiki/JSON)
+or [XML](https://en.wikipedia.org/wiki/XML).
 ]
 .col10[]
 .col20[
@@ -317,7 +318,7 @@ Stores data about authors and quotes.
 | id |              content              |   context   | Posted At | Updated At | Author |
 |:--:|:---------------------------------:|:-----------:|:---------:|:----------:|:------:|
 |  1 |  Talk is cheap. Show me the code. |      -      |    ...    |     ...    |    2   |
-|  2 |        I can not tell a lie       |      -      |    ...    |     ...    |    1   |
+|  2 |        I cannot tell a lie       |      -      |    ...    |     ...    |    1   |
 |  3 | It is better to offer no excuse than a bad one.| - | ...    |     ...    | 1      |
 
 
@@ -369,15 +370,15 @@ There _a ton_ of tools for working with APIs, but here are some of my favorites.
     - Solid GUI application for interacting with APIs, plenty of features.
 - [HTTPie](https://httpie.org/)
     - Command line tool written in python - great if you're already familiar with requests
-    - Strictly for HTTP, so able to make some sane assumptions
+      (the python library)
+    - Strictly for HTTP, so able to make some assumptions
+        - This makes for more concise commands.
     - Cross platform
 - [curl](https://curl.haxx.se/)
     - Available pretty much anywhere `bash` is.
         - mac, linux, etc
     - Supports a wide range of network protocols
     - The de-facto standard
-
-We'll be using postman today, but I encourage you to google the others!
 
 ---
 
@@ -386,6 +387,10 @@ We'll be using postman today, but I encourage you to google the others!
 - Get a list of authors
 - Get an author entry
 - Create an author entry
+
+???
+
+Live demo/walkthrough of ths one.
 
 ---
 
@@ -396,20 +401,27 @@ We'll be using postman today, but I encourage you to google the others!
 - Get a list of quotes by an author
 - Create a quote entry
 
+???
+
+Ask people to try on their own.
+
 ---
 
-# Exercise 3: Update Data
+# Exercise 3: Update an Author or Quote Entry
 
-- Add a birth and/or death date to an author.
-- Add some context to a quote.
-- Explore the difference between the `PUT` and `PATCH` methods.
+- Add or update an author's birth and/or death date.
+- Add or update a quote's context.
+
+???
+
+Tricky one - PUT or PATCH can both work, but operate differently.
 
 ---
 
 # Exercise 4: Delete Data
 
-- Delete an author (what happens to their quotes?)
-- Delete a quote (what happens to the author?)
+- Delete an author
+- Delete a quote
 
 ---
 
@@ -417,10 +429,39 @@ We'll be using postman today, but I encourage you to google the others!
 
 - A way to take an action in response to another event
     - Sometimes called "event APIs"
-- Register _your_ callback URL, specify what events to be alerted on.
-    - You're now the server, rather than the ciient.
+- Register your callback URL, specify what events to be alerted on.
+    - You're now the server, rather than the client.
 - The service sends you a portion of the API automatically, you take
   whatever action you want!
+    - Interact with the originating API
+    - Interact with a different API
+    - Have a bot say something in a Teams channel
+    - Send an email
+    - The sky's the limit!
+
+
+---
+
+# Key Takeaways
+
+- APIs are interfaces for machines.
+    - They facilitate automation, integration, and extension.
+
+- Many services have APIs.
+
+
+- REST is a method of organizing an API and exposing state information.
+    - Endpoints represent collections, objects, or subcollections
+    - Endpoints are the "nouns"
+    - CRUD operations are accessed via different HTTP methods
+    - CRUD operations are the "verbs"
+    - Each request is a simple statement of the desired state change.
+
+
+- There are a variety of tools to use to interact with APIs
+
+
+- Webhooks invert the client/server metaphor, and facilitate automation/reacting to events.
 
 ---
 class: middle
