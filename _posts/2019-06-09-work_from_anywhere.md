@@ -4,7 +4,7 @@ layout: post
 ---
 
 I've spent _a lot_ of time tweaking and customizing my own workspace
-in order to accomplish things faster and more comfortably. However, in the course of my work,
+in order to accomplish things faster and more comfortably. However
 I often have to get things done from different hosts, in different locations, or while
 on the move.
 
@@ -226,7 +226,7 @@ into my home directory. If that sounds a little confusing feel free to take a lo
 [my own dotfiles repo](https://github.com/bnbalsamo/dotfiles) to see what I'm talking about.
 
 This works for single files (e.g. `.bashrc`) and for applications whose configuration(s)
-live in the `.config` directory, or in dot directory (e.g. `.vim/`).
+live in the `.config` directory, or in a dot directory (e.g. `.vim/`).
 
 Additionally, certain utilities (pyenv, for example) can live entirely within the home directory.
 With a conditional or two in `~/.bashrc` it is possible to dynamically activate tools if they've
