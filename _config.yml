@@ -12,6 +12,7 @@ collections:
         output: true
 exclude:
     - tasks.py 
+    - requirements_dev.txt
     - Dockerfile
     - .dockerignore
     - .travis.yml

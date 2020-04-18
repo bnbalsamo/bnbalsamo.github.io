@@ -2,9 +2,13 @@
 
 [![Build Status](https://travis-ci.org/bnbalsamo/bnbalsamo.github.io.svg?branch=master)](https://travis-ci.org/bnbalsamo/bnbalsamo.github.io)
 
-Additional Functionalities
+## Additional Functionalities
 
 All functionality is exposed via [invoke](http://www.pyinvoke.org/).
+
+All requirements stored in `requirements_dev.txt`.
+
+Create a virtualenv, `pip install -r requirements_dev.txt` - you're good to go.
 
 ```
 $ inv --list
