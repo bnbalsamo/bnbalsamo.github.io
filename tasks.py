@@ -85,7 +85,7 @@ def new_post(c, title):
     if filepath.exists():
         raise FileExistsError(filepath.resolve())
     with open(filepath, "w") as f:
-        f.write(f"---\nlayout: post\ntitle:{title}\n---\n\n")
+        f.write(f"---\nlayout: post\ntitle: {title}\n---\n\n")
     print("Open your new post for editing with...")
     print(f"{EDITOR} {filepath}")
 
