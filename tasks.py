@@ -178,10 +178,12 @@ def run_docker_image(c, image_name="bnbalsamo.github.io:latest", port=80, build=
     """
     Run the docker image locally.
     """
+    uid = uuid4().hex
     if build:
         export_docker_image(c, image_name=image_name)
     print(f"Running container. Access site at localhost:{port}")
-    c.run(f"sudo docker run -p {port}:80 {image_name}")
+    print(f"After exiting the server run docker rm {uid} to clean up the container.")
+    c.run(f"sudo docker run -p {port}:80 {image_name} --name {uid}")
 
 
 @task(name="testsite")
