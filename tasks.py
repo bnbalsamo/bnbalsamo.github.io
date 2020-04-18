@@ -8,7 +8,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from invoke import Collection, task
-
+from werkzeug.utils import secure_filename
 
 # Change the CWD to the repo root.
 _LAST_DIR = None
@@ -17,9 +17,7 @@ while not Path("./tasks.py").exists():
     _CURRENT_DIR = Path(".").resolve()
     if _CURRENT_DIR == _LAST_DIR:
         # We hit the FS root :(
-        raise FileNotFoundError(
-            "Could not find the repository root."
-        )
+        raise FileNotFoundError("Could not find the repository root.")
 
 
 # Relevant directories, relative to the repo root.
@@ -69,9 +67,8 @@ def title_to_filename(title):
     """
     Convert a post or presentation title to a file name.
     """
-    # TODO: This definitely isn't completely safe
     filename = title.lower()
-    filename = filename.replace(" ", "_")
+    filename = secure_filename(filename)
     return filename
 
 
@@ -137,8 +134,9 @@ def publish_post(c, title, year=None, month=None, day=None):
         month = f"{datetime.now().month:02}"
     if day is None:
         day = f"{datetime.now().day:02}"
-    post_filepath = DIRECTORIES['posts'] / \
-        (f"{year}-{month}-{day}-{title_to_filename(title)}" + ".md")
+    post_filepath = DIRECTORIES["posts"] / (
+        f"{year}-{month}-{day}-{title_to_filename(title)}" + ".md"
+    )
     post_filepath = post_filepath.resolve()
     print(f"Post File Path: {post_filepath}")
     if post_filepath.exists():
@@ -171,17 +169,12 @@ def export_speaker_notes(c):
     """
     for x in Path("./_presentations").iterdir():
         notes_markdown = parse_for_notes(x)
-        with open(DIRECTORIES["speaker_notes"] / (x.name[0:-5]+".md"), 'w') as f:
+        with open(DIRECTORIES["speaker_notes"] / (x.name[0:-5] + ".md"), "w") as f:
             f.write(speaker_notes_header + notes_markdown)
 
 
 @task(name="dockerimage")
-def run_docker_image(
-    c,
-    image_name="bnbalsamo.github.io:latest",
-    port=80,
-    build=True
-):
+def run_docker_image(c, image_name="bnbalsamo.github.io:latest", port=80, build=True):
     """
     Run the docker image locally.
     """
@@ -203,10 +196,7 @@ def run_test_site(c, port=4000):
         "-v $(pwd):/srv/jekyll jekyll/jekyll jekyll serve --watch -D"
     )
     print("Run the following to end the test server instance...")
-    print(
-        f"sudo docker stop test_site_{uid} && "
-        f"sudo docker rm test_site_{uid}"
-    )
+    print(f"sudo docker stop test_site_{uid} && " f"sudo docker rm test_site_{uid}")
 
 
 # Organize into our subcommands...
